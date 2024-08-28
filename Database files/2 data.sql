@@ -240,3 +240,22 @@ select * from Meal
 select * from Course 
 select * from MealCourse 
 select * from MealCourseRecipe
+
+select c.CuisineName, r.RecipeName, r.Calories, r.RecipeStatus, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, me.MealName, co.CourseName 
+from Cuisine c 
+join Recipe r 
+on c.CuisineId = r.CuisineId
+join HHUser u 
+on r.HHUserId = u.HHUserId
+left join MealCourseRecipe mcr 
+on r.RecipeId = mcr.RecipeId
+left join MealCourse mc
+on mcr.MealCourseId = mc.MealCourseId
+left join Meal Me 
+on mc.MealId = me.MealId
+left join Course co 
+on mc.CourseId = co.CourseId
+where r.RecipeId = 4
+
+select r.RecipeName, r.Calories, r.RecipeStatus, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived from Recipe r
+select * from Recipe r

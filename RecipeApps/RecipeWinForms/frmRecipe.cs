@@ -1,51 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using CPUFramework;
+using CPUWindowsFormFramework;
 
 namespace RecipeWinForms
 {
     public partial class frmRecipe : Form
     {
+        DataTable dtrecipe;
+        
         public frmRecipe()
         {
             InitializeComponent();
+            btnSave.Click += BtnSave_Click;
+            btnDelete.Click += BtnDelete_Click;
         }
 
+        
         public void ShowForm(int recipeid)
         {
-            string sql = "select c.CuisineName, r.RecipeName, r.Calories, r.RecipeStatus, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, me.MealName, co.CourseName " +
-                "from Cuisine c " +
-                "join Recipe r " +
-                "on c.CuisineId = r.CuisineId " +
-                "join HHUser u " +
-                "on r.HHUserId = u.HHUserId " +
-                "left join MealCourseRecipe mcr "+
-                "on r.RecipeId = mcr.RecipeId " +
-                "left join MealCourse mc " +
-                "on mcr.MealCourseId = mc.MealCourseId " +
-                "left join Meal me " +
-                "on mc.MealId = me.MealId " +
-                "left join Course co " +
-                "on mc.CourseId = co.CourseId " +
-                "where r.RecipeId = " + recipeid.ToString();
-            DataTable dt = SQLUtility.GetDataTable(sql);
-            txtRecipeName.DataBindings.Add("Text", dt, "RecipeName");
-            txtCuisineName.DataBindings.Add("Text", dt, "CuisineName");
-            txtCalories.DataBindings.Add("Text", dt, "Calories");
-            txtMealName.DataBindings.Add("Text", dt, "MealName");
-            txtCourseName.DataBindings.Add("Text", dt, "CourseName");
-            txtRecipeStatus.DataBindings.Add("Text", dt, "RecipeStatus");
-            txtDateTimeDraft.DataBindings.Add("Text", dt, "DateTimeDraft");
-            txtDateTimePublished.DataBindings.Add("Text", dt, "DateTimePublished");
-            txtDateTimeArchived.DataBindings.Add("Text", dt, "DateTimeArchived");
+            string sql = "select * from JustRecipe r where r.RecipeId = " + recipeid.ToString();
+            dtrecipe = SQLUtility.GetDataTable(sql);
+            if(recipeid == 0)
+            {
+                dtrecipe.Rows.Add();
+            }
+            WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(dtpDateTimeDraft, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtDateTimePublished, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtDateTimeArchived, dtrecipe);
             this.Show();
+        }
+
+        private void Save()
+        {
+            DataRow r = dtrecipe.Rows[0];
+            int id = (int)r["RecipeId"];
+            string sql = "";
+            if(id > 0)
+            {
+                sql = string.Join(Environment.NewLine, $"update JustRecipe set",
+                    $"RecipeName = '{r["RecipeName"]}',",
+                    $"Calories = '{r["Calories"]}',",
+                    $"DateTimeDraft = '{r["DateTimeDraft"]}'",
+                    //$"{CheckForNull(r["DateTimePublished"], r, "DateTimePublished")}",
+                    //$"{CheckForNull(r["DateTimeArchived"], r, "DateTimeArchived")}",
+                    $"where RecipeId = {r["RecipeId"]}");
+            }
+            else
+            {
+                sql = "insert JustRecipe(RecipeName, Calories, DateTimeDraft)";
+                sql += $"select '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
+            }
+            SQLUtility.ExecuteSQL(sql);
+        }
+
+
+        //private object? CheckForNull(object? columnvalue, DataRow r, string column)
+        //{
+        //    object? s = columnvalue;
+        //    bool b = columnvalue.ToString() == "";
+        //    if (b == false)
+        //    {
+        //        if(column == "DateTimePublished")
+        //        {
+        //            s = $", DateTimePublished = '{r["DateTimePublished"]}'";
+        //        }
+        //        else
+        //        {
+        //            s = $", DateTimeArchived = '{r["DateTimeArchived"]}'";
+        //        }
+        //
+        //    }
+        //    return s;
+        //}
+
+        private void Delete()
+        {
+            int id = (int)dtrecipe.Rows[0]["RecipeId"];
+            string sql = "delete JustRecipe where RecipeId = " + id;
+            SQLUtility.ExecuteSQL(sql);
+            this.Close();
+        }
+
+        private void BtnDelete_Click(object? sender, EventArgs e)
+        {
+            Delete();
+        }
+
+        private void BtnSave_Click(object? sender, EventArgs e)
+        {
+            Save();
         }
     }
 }
