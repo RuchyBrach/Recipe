@@ -110,7 +110,7 @@
             lblCaptionRecipeStatus.Location = new Point(3, 196);
             lblCaptionRecipeStatus.Name = "lblCaptionRecipeStatus";
             lblCaptionRecipeStatus.Size = new Size(127, 28);
-            lblCaptionRecipeStatus.TabIndex = 5;
+            lblCaptionRecipeStatus.TabIndex = 4;
             lblCaptionRecipeStatus.Text = "Recipe Status";
             // 
             // lblCaptionDateTimeDraft
@@ -130,7 +130,7 @@
             lblCaptionDateTimePublished.Location = new Point(3, 364);
             lblCaptionDateTimePublished.Name = "lblCaptionDateTimePublished";
             lblCaptionDateTimePublished.Size = new Size(193, 28);
-            lblCaptionDateTimePublished.TabIndex = 7;
+            lblCaptionDateTimePublished.TabIndex = 8;
             lblCaptionDateTimePublished.Text = "Date/Time Published";
             // 
             // lblCaptionDateTimeArchived
@@ -140,7 +140,7 @@
             lblCaptionDateTimeArchived.Location = new Point(3, 450);
             lblCaptionDateTimeArchived.Name = "lblCaptionDateTimeArchived";
             lblCaptionDateTimeArchived.Size = new Size(185, 28);
-            lblCaptionDateTimeArchived.TabIndex = 8;
+            lblCaptionDateTimeArchived.TabIndex = 10;
             lblCaptionDateTimeArchived.Text = "Date/Time Archived";
             // 
             // txtRecipeName
@@ -150,7 +150,7 @@
             txtRecipeName.Multiline = true;
             txtRecipeName.Name = "txtRecipeName";
             txtRecipeName.Size = new Size(820, 78);
-            txtRecipeName.TabIndex = 9;
+            txtRecipeName.TabIndex = 1;
             // 
             // txtCalories
             // 
@@ -159,25 +159,29 @@
             txtCalories.Multiline = true;
             txtCalories.Name = "txtCalories";
             txtCalories.Size = new Size(820, 78);
-            txtCalories.TabIndex = 11;
+            txtCalories.TabIndex = 3;
             // 
             // txtDateTimePublished
             // 
+            txtDateTimePublished.BackColor = SystemColors.Window;
             txtDateTimePublished.Dock = DockStyle.Fill;
             txtDateTimePublished.Location = new Point(202, 339);
             txtDateTimePublished.Multiline = true;
             txtDateTimePublished.Name = "txtDateTimePublished";
+            txtDateTimePublished.ReadOnly = true;
             txtDateTimePublished.Size = new Size(820, 78);
-            txtDateTimePublished.TabIndex = 16;
+            txtDateTimePublished.TabIndex = 9;
             // 
             // txtDateTimeArchived
             // 
+            txtDateTimeArchived.BackColor = SystemColors.Window;
             txtDateTimeArchived.Dock = DockStyle.Fill;
             txtDateTimeArchived.Location = new Point(202, 423);
             txtDateTimeArchived.Multiline = true;
             txtDateTimeArchived.Name = "txtDateTimeArchived";
+            txtDateTimeArchived.ReadOnly = true;
             txtDateTimeArchived.Size = new Size(820, 82);
-            txtDateTimeArchived.TabIndex = 17;
+            txtDateTimeArchived.TabIndex = 11;
             // 
             // lblRecipeStatus
             // 
@@ -187,14 +191,14 @@
             lblRecipeStatus.Location = new Point(202, 168);
             lblRecipeStatus.Name = "lblRecipeStatus";
             lblRecipeStatus.Size = new Size(820, 84);
-            lblRecipeStatus.TabIndex = 18;
+            lblRecipeStatus.TabIndex = 5;
             // 
             // dtpDateTimeDraft
             // 
             dtpDateTimeDraft.Location = new Point(202, 255);
             dtpDateTimeDraft.Name = "dtpDateTimeDraft";
             dtpDateTimeDraft.Size = new Size(331, 34);
-            dtpDateTimeDraft.TabIndex = 19;
+            dtpDateTimeDraft.TabIndex = 7;
             // 
             // toolStrip1
             // 
@@ -203,7 +207,7 @@
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1025, 27);
-            toolStrip1.TabIndex = 1;
+            toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
             // 
             // btnSave
