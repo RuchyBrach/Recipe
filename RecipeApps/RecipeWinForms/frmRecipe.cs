@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using CPUFramework;
 
 namespace RecipeWinForms
@@ -37,12 +29,9 @@ namespace RecipeWinForms
                 "where r.RecipeId = " + recipeid.ToString();
             DataTable dt = SQLUtility.GetDataTable(sql);
             txtRecipeName.DataBindings.Add("Text", dt, "RecipeName");
-            txtCuisineName.DataBindings.Add("Text", dt, "CuisineName");
             txtCalories.DataBindings.Add("Text", dt, "Calories");
-            txtMealName.DataBindings.Add("Text", dt, "MealName");
-            txtCourseName.DataBindings.Add("Text", dt, "CourseName");
-            txtRecipeStatus.DataBindings.Add("Text", dt, "RecipeStatus");
-            txtDateTimeDraft.DataBindings.Add("Text", dt, "DateTimeDraft");
+            lblRecipeStatus.DataBindings.Add("Text", dt, "RecipeStatus");
+            dtpDateTimeDraft.DataBindings.Add("Text", dt, "DateTimeDraft");
             txtDateTimePublished.DataBindings.Add("Text", dt, "DateTimePublished");
             txtDateTimeArchived.DataBindings.Add("Text", dt, "DateTimeArchived");
             this.Show();
