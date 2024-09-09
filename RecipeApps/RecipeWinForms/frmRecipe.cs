@@ -12,7 +12,7 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             btnSave.Click += BtnSave_Click;
-            btnDelete.Click += BtnDelete_Click;
+            btnDelete.Click += BtnDelete_Click; 
         }
 
 
