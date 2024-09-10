@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RecipeSystem
 {
-    internal class DBManager
+    public class DBManager
     {
         public static void SetConnectionString(string connectionstring)
         {

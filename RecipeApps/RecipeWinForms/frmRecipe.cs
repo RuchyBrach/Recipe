@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using CPUFramework;
 using CPUWindowsFormFramework;
+using RecipeSystem;
 
 namespace RecipeWinForms
 {
@@ -18,8 +18,9 @@ namespace RecipeWinForms
 
         public void ShowForm(int recipeid)
         {
-            string sql = "select * from JustRecipe r where r.RecipeId = " + recipeid.ToString();
-            dtrecipe = SQLUtility.GetDataTable(sql);
+            dtrecipe = Recipe.Load(recipeid);
+            //string sql = "select * from JustRecipe r where r.RecipeId = " + recipeid.ToString();
+            //dtrecipe = SQLUtility.GetDataTable(sql);
             if (recipeid == 0)
             {
                 dtrecipe.Rows.Add();
@@ -34,25 +35,7 @@ namespace RecipeWinForms
 
         private void Save()
         {
-            DataRow r = dtrecipe.Rows[0];
-            int id = (int)r["RecipeId"];
-            string sql = "";
-            if (id > 0)
-            {
-                sql = string.Join(Environment.NewLine, $"update JustRecipe set",
-                    $"RecipeName = '{r["RecipeName"]}',",
-                    $"Calories = '{r["Calories"]}',",
-                    $"DateTimeDraft = '{r["DateTimeDraft"]}'",
-                    //$"{CheckForNull(r["DateTimePublished"], r, "DateTimePublished")}",
-                    //$"{CheckForNull(r["DateTimeArchived"], r, "DateTimeArchived")}",
-                    $"where RecipeId = {r["RecipeId"]}");
-            }
-            else
-            {
-                sql = "insert JustRecipe(RecipeName, Calories, DateTimeDraft)";
-                sql += $"select '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
-            }
-            SQLUtility.ExecuteSQL(sql);
+            Recipe.Save(dtrecipe);
         }
 
 
@@ -77,9 +60,7 @@ namespace RecipeWinForms
 
         private void Delete()
         {
-            int id = (int)dtrecipe.Rows[0]["RecipeId"];
-            string sql = "delete JustRecipe where RecipeId = " + id;
-            SQLUtility.ExecuteSQL(sql);
+            
             this.Close();
         }
 
