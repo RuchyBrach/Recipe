@@ -1,7 +1,8 @@
-using CPUFramework;
+
 
 namespace RecipeWinForms
 {
+    using CPUFramework;
     internal static class Program
     {
         /// <summary>
