@@ -26,6 +26,7 @@ namespace RecipeWinForms
             }
             WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
             WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(lblRecipeStatus, dtrecipe);
             WindowsFormsUtility.SetControlBinding(dtpDateTimeDraft, dtrecipe);
             WindowsFormsUtility.SetControlBinding(txtDateTimePublished, dtrecipe);
             WindowsFormsUtility.SetControlBinding(txtDateTimeArchived, dtrecipe);
