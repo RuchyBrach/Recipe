@@ -20,7 +20,7 @@ namespace RecipeWinForms
 
         private void SearchForRecipe(string recipename)
         {
-            string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from JustRecipe r where r.RecipeName like '%" + recipename + "%'";
+            string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from Recipe r where r.RecipeName like '%" + recipename + "%'";
             DataTable dt = SQLUtility.GetDataTable(sql);
             gRecipe.DataSource = dt;
             gRecipe.Columns["RecipeId"].Visible = false;

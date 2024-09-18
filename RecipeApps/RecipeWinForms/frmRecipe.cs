@@ -18,7 +18,7 @@ namespace RecipeWinForms
 
         public void ShowForm(int recipeid)
         {
-            string sql = "select * from JustRecipe r where r.RecipeId = " + recipeid.ToString();
+            string sql = "select * from Recipe r where r.RecipeId = " + recipeid.ToString();
             dtrecipe = SQLUtility.GetDataTable(sql);
             if (recipeid == 0)
             {
@@ -41,7 +41,7 @@ namespace RecipeWinForms
             string sql = "";
             if (id > 0)
             {
-                sql = string.Join(Environment.NewLine, $"update JustRecipe set",
+                sql = string.Join(Environment.NewLine, $"update Recipe set",
                     $"RecipeName = '{r["RecipeName"]}',",
                     $"Calories = '{r["Calories"]}',",
                     $"DateTimeDraft = '{r["DateTimeDraft"]}'",
@@ -51,7 +51,7 @@ namespace RecipeWinForms
             }
             else
             {
-                sql = "insert JustRecipe(RecipeName, Calories, DateTimeDraft)";
+                sql = "insert Recipe(RecipeName, Calories, DateTimeDraft)";
                 sql += $"select '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
             }
             SQLUtility.ExecuteSQL(sql);
@@ -80,7 +80,7 @@ namespace RecipeWinForms
         private void Delete()
         {
             int id = (int)dtrecipe.Rows[0]["RecipeId"];
-            string sql = "delete JustRecipe where RecipeId = " + id;
+            string sql = "delete Recipe where RecipeId = " + id;
             SQLUtility.ExecuteSQL(sql);
             this.Close();
         }
