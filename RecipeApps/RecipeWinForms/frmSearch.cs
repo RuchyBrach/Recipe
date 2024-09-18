@@ -2,6 +2,7 @@
 using System.Data;
 using CPUFramework;
 using CPUWindowsFormFramework;
+using RecipeStystem;
 
 namespace RecipeWinForms
 {
@@ -20,8 +21,7 @@ namespace RecipeWinForms
 
         private void SearchForRecipe(string recipename)
         {
-            string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from JustRecipe r where r.RecipeName like '%" + recipename + "%'";
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            DataTable dt = Recipe.SearchRecipe(recipename);
             gRecipe.DataSource = dt;
             gRecipe.Columns["RecipeId"].Visible = false;
         }
