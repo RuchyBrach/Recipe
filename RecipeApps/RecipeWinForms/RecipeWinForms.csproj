@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\CPUWindowsFormFramework\CPUWindowsFormFramework.csproj" />
-    <ProjectReference Include="..\RecipeStystem\RecipeStystem.csproj" />
+    <ProjectReference Include="..\RecipeStystem\RecipeSystem.csproj" />
   </ItemGroup>
 
   <ItemGroup>

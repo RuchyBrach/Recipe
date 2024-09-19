@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUFramework", "..\..\CPUFr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUWindowsFormFramework", "..\..\CPUWindowsFormFramework\CPUWindowsFormFramework.csproj", "{72360752-8584-4529-9561-B16771FD2F87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeStystem", "RecipeStystem\RecipeStystem.csproj", "{A284F772-367E-4731-B532-3BA800A9268A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSystem", "RecipeStystem\RecipeSystem.csproj", "{A284F772-367E-4731-B532-3BA800A9268A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeTest", "RecipeTest\RecipeTest.csproj", "{5ADFED5F-C9A7-49FB-A245-129B0D2317AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A284F772-367E-4731-B532-3BA800A9268A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A284F772-367E-4731-B532-3BA800A9268A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A284F772-367E-4731-B532-3BA800A9268A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ADFED5F-C9A7-49FB-A245-129B0D2317AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ADFED5F-C9A7-49FB-A245-129B0D2317AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ADFED5F-C9A7-49FB-A245-129B0D2317AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ADFED5F-C9A7-49FB-A245-129B0D2317AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
