@@ -24,6 +24,10 @@ namespace RecipeWinForms
             {
                 dtrecipe.Rows.Add();
             }
+            DataTable dthhuser = Recipe.GetList("HHUser");
+            DataTable dtcuisine = Recipe.GetList("Cuisine");
+            WindowsFormsUtility.SetListBinding(lstUsername, dthhuser, dtrecipe, "HHUser");
+            WindowsFormsUtility.SetListBinding(lstCuisineName, dtcuisine, dtrecipe, "Cuisine");
             WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
             WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
             WindowsFormsUtility.SetControlBinding(lblRecipeStatus, dtrecipe);

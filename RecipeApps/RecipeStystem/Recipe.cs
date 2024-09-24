@@ -10,15 +10,28 @@ namespace RecipeStystem
 {
     public class Recipe
     {
+        public static DataTable GetList(string dtname)
+        {
+            string sql;
+            if(dtname == "HHUser")
+            {
+                sql = "select HHUserId, Username from HHUser";
+            }
+            else
+            {
+                sql = "select CuisineId, CuisineName from Cuisine";
+            }
+            return SQLUtility.GetDataTable(sql);
+        }
         public static DataTable SearchRecipe(string recipename)
         {
-            string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from JustRecipe r where r.RecipeName like '%" + recipename + "%'";
+            string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from Recipe r where r.RecipeName like '%" + recipename + "%'";
             return SQLUtility.GetDataTable(sql);
         }
 
         public static DataTable Load(int recipeid)
         {
-            string sql = "select * from JustRecipe r where r.RecipeId = " + recipeid.ToString();
+            string sql = "select * from Recipe r where r.RecipeId = " + recipeid.ToString();
             return SQLUtility.GetDataTable(sql);
         }
 
@@ -29,7 +42,7 @@ namespace RecipeStystem
             string sql = "";
             if (id > 0)
             {
-                sql = string.Join(Environment.NewLine, $"update JustRecipe set",
+                sql = string.Join(Environment.NewLine, $"update Recipe set",
                     $"RecipeName = '{r["RecipeName"]}',",
                     $"Calories = '{r["Calories"]}',",
                     $"DateTimeDraft = '{r["DateTimeDraft"]}'",
@@ -39,8 +52,8 @@ namespace RecipeStystem
             }
             else
             {
-                sql = "insert JustRecipe(RecipeName, Calories, DateTimeDraft)";
-                sql += $"select '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
+                sql = "insert Recipe(HHUserId, CuisineId, RecipeName, Calories, DateTimeDraft)";
+                sql += $"select '{r["HHUserId"]}', '{r["CuisineId"]}', '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
             }
             SQLUtility.ExecuteSQL(sql);
         }
@@ -48,7 +61,7 @@ namespace RecipeStystem
         public static void Delete(DataTable dtrecipe)
         {
             int id = (int)dtrecipe.Rows[0]["RecipeId"];
-            string sql = "delete JustRecipe where RecipeId = " + id;
+            string sql = "delete Recipe where RecipeId = " + id;
             SQLUtility.ExecuteSQL(sql);
         }
     }
