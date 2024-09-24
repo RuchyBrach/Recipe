@@ -16,8 +16,6 @@ namespace RecipeWinForms
             WindowsFormsUtility.FormatGridForSearchResults(gRecipe);
         }
 
-
-
         private void SearchForRecipe(string recipename)
         {
             string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from Recipe r where r.RecipeName like '%" + recipename + "%'";

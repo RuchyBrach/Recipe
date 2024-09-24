@@ -24,6 +24,10 @@ namespace RecipeWinForms
             {
                 dtrecipe.Rows.Add();
             }
+            DataTable dtHHUser = SQLUtility.GetDataTable("select HHUserId, Username from HHuser");
+            DataTable dtCuisine = SQLUtility.GetDataTable("select CuisineId, CuisineName from Cuisine");
+            WindowsFormsUtility.SetListBinding(lstUsername, dtHHUser, dtrecipe, "HHUser");
+            WindowsFormsUtility.SetListBinding(lstCuisineName, dtCuisine, dtrecipe, "Cuisine");
             WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
             WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
             WindowsFormsUtility.SetControlBinding(lblRecipeStatus, dtrecipe);
@@ -42,6 +46,8 @@ namespace RecipeWinForms
             if (id > 0)
             {
                 sql = string.Join(Environment.NewLine, $"update Recipe set",
+                    $"HHUserId = '{r["HHUserId"]}', ",
+                    $"CuisineId = '{r["CuisineId"]}', ",
                     $"RecipeName = '{r["RecipeName"]}',",
                     $"Calories = '{r["Calories"]}',",
                     $"DateTimeDraft = '{r["DateTimeDraft"]}'",
@@ -51,8 +57,8 @@ namespace RecipeWinForms
             }
             else
             {
-                sql = "insert Recipe(RecipeName, Calories, DateTimeDraft)";
-                sql += $"select '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
+                sql += "insert Recipe(HHUserId, CuisineId, RecipeName, Calories, DateTimeDraft)";
+                sql += $"select '{r["HHUserId"]}', '{r["CuisineId"]}', '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
             }
             SQLUtility.ExecuteSQL(sql);
         }
