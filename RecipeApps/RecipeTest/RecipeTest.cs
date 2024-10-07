@@ -90,7 +90,7 @@ namespace RecipeTest
             TestContext.WriteLine("Loaded recipe (" + loadedid + ")");
         }
 
-        [Test]
+        [Test] 
         public void GetListOfUsers()
         {
             //DataTable dtusercount = SQLUtility.GetDataTable("select total = count(*) from HHUser");
