@@ -1,7 +1,5 @@
 ﻿using System.Data;
 using CPUFramework;
-using CPUWindowsFormFramework;
-using RecipeStystem;
 
 namespace RecipeWinForms
 {
@@ -24,8 +22,8 @@ namespace RecipeWinForms
             {
                 dtrecipe.Rows.Add();
             }
-            DataTable dthhuser = Recipe.GetList("HHUser");
-            DataTable dtcuisine = Recipe.GetList("Cuisine");
+            DataTable dthhuser = Recipe.GetUsernameList();
+            DataTable dtcuisine = Recipe.GetCuisineList();
             WindowsFormsUtility.SetListBinding(lstUsername, dthhuser, dtrecipe, "HHUser");
             WindowsFormsUtility.SetListBinding(lstCuisineName, dtcuisine, dtrecipe, "Cuisine");
             WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);

@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Data;
 
 namespace RecipeStystem
 {
     public class Recipe
     {
-        public static DataTable GetList(string dtname)
+        public static DataTable GetUsernameList()
         {
-            string sql;
-            if(dtname == "HHUser")
-            {
-                sql = "select HHUserId, Username from HHUser";
-            }
-            else
-            {
-                sql = "select CuisineId, CuisineName from Cuisine";
-            }
-            return SQLUtility.GetDataTable(sql);
+            return SQLUtility.GetDataTable("select HHUserId, Username from HHUser");
+        }
+
+        public static DataTable GetCuisineList()
+        {
+            return SQLUtility.GetDataTable("select CuisineId, CuisineName from Cuisine");
         }
         public static DataTable SearchRecipe(string recipename)
         {
