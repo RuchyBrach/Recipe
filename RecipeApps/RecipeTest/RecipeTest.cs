@@ -22,7 +22,7 @@ namespace RecipeTest
             int cuisineid = SQLUtility.GetFirstColumnFirstRowValue("select top 1 cuisineid from cuisine");
             Assume.That(cuisineid > 0, "can't run test, no cuisines in DB");
             DateTime uniquecode = DateTime.Now; 
-            TestContext.WriteLine("insert president with hhuserid = " + hhuserid);
+            TestContext.WriteLine("insert recipe with hhuserid = " + hhuserid);
 
             r["HHUserId"] = hhuserid;
             r["CuisineId"] = cuisineid;
@@ -68,7 +68,7 @@ namespace RecipeTest
                 recipedesc = dt.Rows[0]["RecipeName"].ToString();
             }
             Assume.That(recipeid > 0, "No recipes without direction in DB, can't run test");
-            TestContext.WriteLine("existing president without direction, with id = " + recipeid + " " + recipedesc);
+            TestContext.WriteLine("existing recipe without direction, with id = " + recipeid + " " + recipedesc);
             TestContext.WriteLine("ensure that app can delete " + recipeid);
             Recipe.Delete(dt);
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
