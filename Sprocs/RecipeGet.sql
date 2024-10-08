@@ -24,5 +24,5 @@ exec RecipeGet @All = 1
 
 declare @Id int
 select top 1 @Id = r.RecipeId from Recipe r order by r.RecipeId
-exec RecipeGet @RecipeId = @Id
+exec RecipeGet @RecipeId = @Id 
 */
