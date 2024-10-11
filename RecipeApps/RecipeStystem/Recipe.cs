@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace RecipeStystem
 {
@@ -6,23 +7,37 @@ namespace RecipeStystem
     {
         public static DataTable GetUsernameList()
         {
-            return SQLUtility.GetDataTable("select HHUserId, Username from HHUser");
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("HHUserGet");
+            cmd.Parameters["@All"].Value = 1;
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
 
         public static DataTable GetCuisineList()
         {
-            return SQLUtility.GetDataTable("select CuisineId, CuisineName from Cuisine");
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CuisineGet");
+            cmd.Parameters["@All"].Value = 1;
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
         public static DataTable SearchRecipe(string recipename)
         {
-            string sql = "select r.RecipeId, r.RecipeName, r.Calories, r.RecipeStatus from Recipe r where r.RecipeName like '%" + recipename + "%'";
-            return SQLUtility.GetDataTable(sql);
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
+            cmd.Parameters["@RecipeName"].Value = recipename;
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
 
         public static DataTable Load(int recipeid)
         {
-            string sql = "select * from Recipe r where r.RecipeId = " + recipeid.ToString();
-            return SQLUtility.GetDataTable(sql);
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
+            cmd.Parameters["@RecipeId"].Value = recipeid;
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
 
         public static void Save(DataTable dtrecipe)

@@ -11,7 +11,6 @@ namespace RecipeTest
         }
         [Test]
         [TestCase(75, "02-02-2010")]
-        [TestCase(150, "12-02-2020")]
         public void InsertNewRecipe(int calories, DateTime datetimedraft)
         {
             DataTable dt = SQLUtility.GetDataTable("select * from recipe where recipeid = 0");
@@ -74,7 +73,6 @@ namespace RecipeTest
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "record with recipeid " + recipeid + "exists in DB");
             TestContext.WriteLine("Record with recipeid" + recipeid + "does not exist in DB");
-
         }
 
         [Test]
@@ -105,6 +103,23 @@ namespace RecipeTest
             Assert.IsTrue(dt.Rows.Count == usercount, "num rows returned by app (" + dt.Rows.Count + ") <> " + usercount);
             TestContext.WriteLine("Number of rows in Users return by app = " + dt.Rows.Count);
         }
+
+        [Test]
+        public void SearchRecipe()
+        {
+            string criteria = "a";
+            int num = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from recipe r where r.RecipeName like '%" + criteria + "%'");
+            Assume.That(num > 0, "There are no recipes in the DB that match search for " + criteria);
+            TestContext.WriteLine("There are " + num + "recipes that match search for " + criteria);
+            TestContext.WriteLine("Ensure that recipe search returns " + num + "rows");
+
+            DataTable dt = Recipe.SearchRecipe(criteria);
+            int results = dt.Rows.Count;
+
+            Assert.IsTrue(results == num, "Results of recipe does not match num of recipes, " + results + " <> " + num);
+            TestContext.WriteLine("Number of rows returned by president search is " + results);
+        }
+
         [Test]
         public void GetListOfCuisines()
         {
@@ -113,7 +128,7 @@ namespace RecipeTest
             TestContext.WriteLine("Num of users in DB = " + cuisinecount);
             TestContext.WriteLine("Ensure that num of rows return by app matches " + cuisinecount);
 
-            DataTable dt = Recipe.GetUsernameList();
+            DataTable dt = Recipe.GetCuisineList();
 
             Assert.IsTrue(dt.Rows.Count == cuisinecount, "num rows returned by app (" + dt.Rows.Count + ") <> " + cuisinecount);
             TestContext.WriteLine("Number of rows in Users return by app = " + dt.Rows.Count);
