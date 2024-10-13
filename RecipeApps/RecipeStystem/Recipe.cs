@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace RecipeStystem
 {
-    public class Recipe
+    public class Recipe 
     {
         public static DataTable GetUsernameList()
         {
