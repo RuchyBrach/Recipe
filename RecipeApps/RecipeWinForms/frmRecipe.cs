@@ -5,7 +5,7 @@ namespace RecipeWinForms
 {
     public partial class frmRecipe : Form
     {
-        DataTable dtrecipe;
+        DataTable dtrecipe = new();
 
         public frmRecipe()
         {
@@ -24,7 +24,7 @@ namespace RecipeWinForms
             }
             DataTable dthhuser = Recipe.GetUsernameList();
             DataTable dtcuisine = Recipe.GetCuisineList();
-            WindowsFormsUtility.SetListBinding(lstUsername, dthhuser, dtrecipe, "HHUser");
+            WindowsFormsUtility.SetListBinding(lstUserName, dthhuser, dtrecipe, "HHUser");
             WindowsFormsUtility.SetListBinding(lstCuisineName, dtcuisine, dtrecipe, "Cuisine");
             WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
             WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
@@ -37,7 +37,19 @@ namespace RecipeWinForms
 
         private void Save()
         {
-            Recipe.Save(dtrecipe);
+            Application.UseWaitCursor = true;
+            try
+            {
+                Recipe.Save(dtrecipe);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hearty Hearth");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
         }
 
 
@@ -62,8 +74,20 @@ namespace RecipeWinForms
 
         private void Delete()
         {
-            Recipe.Delete(dtrecipe);
-            this.Close();
+            Application.UseWaitCursor = true;
+            try
+            {
+                Recipe.Delete(dtrecipe);
+                this.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hearty Hearth");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)

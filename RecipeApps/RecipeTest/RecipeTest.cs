@@ -37,7 +37,7 @@ namespace RecipeTest
         }
 
         [Test]
-        public void ChangeExistingRecipeCalories()
+        public void ChangeRecipeCalories()
         {
             int recipeid = GetExistingRecipeId();
             Assume.That(recipeid > 0, "No recipe in DB, can't run test");
@@ -53,6 +53,41 @@ namespace RecipeTest
             int newcalories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
             Assert.IsTrue(newcalories == calories, "Calories for recipe(" + recipeid + ") = " + newcalories);
             TestContext.WriteLine("Calories for recipe(" + recipeid + ") = " + newcalories);
+        }
+
+        [Test]
+        public void ChangeRecipeToInvalidCalories()
+        {
+            int recipeid = GetExistingRecipeId();
+            Assume.That(recipeid > 0, "No recipe in DB, can't run test");
+            int calories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid = " + recipeid);
+            TestContext.WriteLine("calories for recipeid " + recipeid + " is " + calories);
+            calories = calories - calories - 1;
+            TestContext.WriteLine("Change calories to " + calories);
+
+            DataTable dt = Recipe.Load(recipeid);
+            dt.Rows[0]["calories"] = calories;
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
+            TestContext.WriteLine(ex.Message);
+
+        }
+
+        [Test]
+        public void ChangeExistingRecipeToInvalidRecipeName()
+        {
+            int recipeid = GetExistingRecipeId();
+            Assume.That(recipeid > 0, "No recipe in DB, can't run test");
+            string recipename = GetFirstColumnFirstRowValueAsString("select recipename from recipe where recipeid = " + recipeid);
+            string newrecipename = GetFirstColumnFirstRowValueAsString("select recipename from recipe where recipeid <> " + recipeid);
+            TestContext.WriteLine("recipename for recipeid " + recipeid + " is " + recipename);
+            recipename = newrecipename;
+            TestContext.WriteLine("Change recipename to " + newrecipename);
+
+            DataTable dt = Recipe.Load(recipeid);
+            dt.Rows[0]["recipename"] = newrecipename;
+            Exception ex = Assert.Throws<Exception>(() =>Recipe.Save(dt));
+            TestContext.WriteLine(ex.Message);
+            
         }
 
         [Test]
@@ -74,6 +109,25 @@ namespace RecipeTest
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "record with recipeid " + recipeid + "exists in DB");
             TestContext.WriteLine("Record with recipeid" + recipeid + "does not exist in DB");
         }
+
+        [Test]
+        public void DeleteRecipeWithDirection()
+        {
+            DataTable dt = SQLUtility.GetDataTable("select top 1 r.recipeid, r.recipename from recipe r join direction d on r.recipeid = d.recipeid");
+            int recipeid = 0;
+            string recipedesc = "";
+            if (dt.Rows.Count > 0)
+            {
+                recipeid = (int)dt.Rows[0]["recipeid"];
+                recipedesc = dt.Rows[0]["RecipeName"].ToString();
+            }
+            Assume.That(recipeid > 0, "No recipes without direction in DB, can't run test");
+            TestContext.WriteLine("existing recipe with direction, with id = " + recipeid + " " + recipedesc);
+            TestContext.WriteLine("ensure that app can't delete " + recipeid);
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
 
         [Test]
         public void LoadRecipe()
@@ -138,6 +192,20 @@ namespace RecipeTest
         {
             return SQLUtility.GetFirstColumnFirstRowValue("select top 1 recipeid from recipe");
 
+        }
+
+        private string GetFirstColumnFirstRowValueAsString(string sql)
+        {
+            string s = "";
+            DataTable dt = SQLUtility.GetDataTable(sql);
+            if(dt.Rows.Count > 0 && dt.Columns.Count > 0)
+            {
+                if (dt.Rows[0][0] != DBNull.Value)
+                {
+                    s = dt.Rows[0][0].ToString();
+                }
+            }
+            return s;
         }
     }
 }
