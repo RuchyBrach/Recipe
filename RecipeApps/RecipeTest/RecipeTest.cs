@@ -111,9 +111,15 @@ namespace RecipeTest
         }
 
         [Test]
-        public void DeleteRecipeWithDirection()
+        public void DeleteRecipeWithCookBook()
         {
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.recipeid, r.recipename from recipe r join direction d on r.recipeid = d.recipeid");
+            string sql = @"
+            select top 1 r.recipeid, r.recipename 
+            from recipe r 
+            join mealcourserecipe mcr 
+            on r.recipeid = mcr.recipeid 
+            where mcr.recipeid is not null";
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeid = 0;
             string recipedesc = "";
             if (dt.Rows.Count > 0)
