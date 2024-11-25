@@ -1,6 +1,21 @@
-create or alter procedure dbo.RecipeDelete(@RecipeId int)
+use HeartyHearthdb
+go
+create or alter procedure dbo.RecipeDelete(@RecipeId int, @Message varchar(500) = '' output)
 as 
 begin
+	declare @return int = 0
+
+	if exists(select * from recipe r where r.RecipeId = @RecipeId and DateDiff(day, r.DateTimeArchived, CURRENT_TIMESTAMP) < 30)
+	begin
+		select @return = 1, @Message = 'Cannot delete recipe that is archived for less than 30 days.'
+		goto finished
+	end
+	if exists(select * from recipe r where r.RecipeId = @RecipeId and r.RecipeStatus = 'Draft')
+	begin
+		select @return = 1, @Message = 'Cannot delete recipe where recipe status = Draft.'
+		goto finished
+	end
+
 	begin try
 		begin tran
 
@@ -15,9 +30,12 @@ begin
 		commit
 	end try
 	begin catch
-	rollback;
-	throw
+		rollback;
+		throw
 	end catch
+	finished:
+	return @return
 end 
 go
+
 
