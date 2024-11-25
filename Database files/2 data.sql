@@ -31,7 +31,7 @@ union select 'English'
     select UserName = 'David Miller', CuisineName = 'American', RecipeName = 'Chocolate Chip Cookies', Calories = 50, DateTimeDraft = CURRENT_TIMESTAMP - 10, DateTimePublished = null, DateTimeArchived = null
     union select 'David Miller', 'French', 'Apple Yogurt Smoothie', 75, CURRENT_TIMESTAMP - 10, CURRENT_TIMESTAMP - 8, null
     union select 'Sarah Baker', 'English', 'Cheese Bread', 100, CURRENT_TIMESTAMP -11, CURRENT_TIMESTAMP - 10, CURRENT_TIMESTAMP - 1
-    union select 'Sarah Baker', 'American', 'Butter Muffins', 150, CURRENT_TIMESTAMP - 15, null, CURRENT_TIMESTAMP - 12
+    union select 'Sarah Baker', 'American', 'Butter Muffins', 150, CURRENT_TIMESTAMP - 150, null, CURRENT_TIMESTAMP - 120
 )
 insert Recipe(HHUserId, CuisineId, RecipeName, Calories, DateTimeDraft, DateTimePublished, DateTimeArchived)
 select HHUserId, CuisineId, RecipeName, Calories, DateTimeDraft, DateTimePublished, DateTimeArchived

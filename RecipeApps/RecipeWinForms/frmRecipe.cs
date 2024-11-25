@@ -6,6 +6,7 @@ namespace RecipeWinForms
     public partial class frmRecipe : Form
     {
         DataTable dtrecipe = new();
+        BindingSource bindsource = new();
 
         public frmRecipe()
         {
@@ -18,6 +19,7 @@ namespace RecipeWinForms
         public void ShowForm(int recipeid)
         {
             dtrecipe = Recipe.Load(recipeid);
+            bindsource.DataSource = dtrecipe;
             if (recipeid == 0)
             {
                 dtrecipe.Rows.Add();
@@ -26,12 +28,12 @@ namespace RecipeWinForms
             DataTable dtcuisine = Recipe.GetCuisineList();
             WindowsFormsUtility.SetListBinding(lstUserName, dthhuser, dtrecipe, "HHUser");
             WindowsFormsUtility.SetListBinding(lstCuisineName, dtcuisine, dtrecipe, "Cuisine");
-            WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(lblRecipeStatus, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(dtpDateTimeDraft, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDateTimePublished, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDateTimeArchived, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtCalories, bindsource);
+            WindowsFormsUtility.SetControlBinding(lblRecipeStatus, bindsource);
+            WindowsFormsUtility.SetControlBinding(dtpDateTimeDraft, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDateTimePublished, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDateTimeArchived, bindsource);
             this.Show();
         }
 
@@ -51,26 +53,6 @@ namespace RecipeWinForms
                 Application.UseWaitCursor = false;
             }
         }
-
-
-        //private object? CheckForNull(object? columnvalue, DataRow r, string column)
-        //{
-        //    object? s = columnvalue;
-        //    bool b = columnvalue.ToString() == "";
-        //    if (b == false)
-        //    {
-        //        if(column == "DateTimePublished")
-        //        {
-        //            s = $", DateTimePublished = '{r["DateTimePublished"]}'";
-        //        }
-        //        else
-        //        {
-        //            s = $", DateTimeArchived = '{r["DateTimeArchived"]}'";
-        //        }
-        //
-        //    }
-        //    return s;
-        //}
 
         private void Delete()
         {
