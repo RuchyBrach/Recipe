@@ -42,25 +42,13 @@ namespace RecipeStystem
 
         public static void Save(DataTable dtrecipe)
         {
+            if(dtrecipe.Rows.Count == 0)
+            {
+                throw new Exception("Cannot call Recipe Save method because there are no rows in the table");
+            }
+
             DataRow r = dtrecipe.Rows[0];
-            int id = (int)r["RecipeId"];
-            string sql = "";
-            if (id > 0)
-            {
-                sql = string.Join(Environment.NewLine, $"update Recipe set",
-                    $"RecipeName = '{r["RecipeName"]}',",
-                    $"Calories = '{r["Calories"]}',",
-                    $"DateTimeDraft = '{r["DateTimeDraft"]}'",
-                    //$"{CheckForNull(r["DateTimePublished"], r, "DateTimePublished")}",
-                    //$"{CheckForNull(r["DateTimeArchived"], r, "DateTimeArchived")}",
-                    $"where RecipeId = {r["RecipeId"]}");
-            }
-            else
-            {
-                sql = "insert Recipe(HHUserId, CuisineId, RecipeName, Calories, DateTimeDraft)";
-                sql += $"select '{r["HHUserId"]}', '{r["CuisineId"]}', '{r["RecipeName"]}', '{r["Calories"]}', '{r["DateTimeDraft"]}'";
-            }
-            SQLUtility.ExecuteSQL(sql);
+            SQLUtility.SaveDataRow(r, "RecipeUpdate");
         }
 
         public static void Delete(DataTable dtrecipe)

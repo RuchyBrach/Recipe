@@ -43,6 +43,7 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Save(dtrecipe);
+                bindsource.ResetBindings(false);
             }
             catch (Exception ex)
             {
