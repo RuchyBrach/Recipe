@@ -10,9 +10,9 @@ begin
 		select @return = 1, @Message = 'Cannot delete recipe that is archived for less than 30 days.'
 		goto finished
 	end
-	if exists(select * from recipe r where r.RecipeId = @RecipeId and r.RecipeStatus = 'Draft')
+	if exists(select * from recipe r where r.RecipeId = @RecipeId and r.RecipeStatus = 'Published')
 	begin
-		select @return = 1, @Message = 'Cannot delete recipe where recipe status = Draft.'
+		select @return = 1, @Message = 'Cannot delete recipe where recipe status = Published.'
 		goto finished
 	end
 
