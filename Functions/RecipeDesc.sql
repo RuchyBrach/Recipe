@@ -12,7 +12,7 @@ begin
 	from Recipe r
 	left join x
 	on r.RecipeId = x.RecipeId
-	left join RecipeIngredient ri 
+	left join RecipeIngredient ri  
 	on r.RecipeId = ri.RecipeId
 	left join Cuisine c 
 	on c.CuisineId = r.CuisineId

@@ -15,6 +15,6 @@ begin
 	group by m.MealName
 	return @value
 end
-go
+go 
 select MealCal = dbo.MealCal(m.MealId), m.*
 from Meal m
