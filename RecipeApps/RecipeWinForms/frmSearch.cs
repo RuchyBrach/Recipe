@@ -11,7 +11,7 @@ namespace RecipeWinForms
             btnSearch.Click += BtnSearch_Click;
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
             btnNew.Click += BtnNew_Click;
-            WindowsFormsUtility.FormatGridForSearchResults(gRecipe);
+            WindowsFormsUtility.FormatGridForSearchResults(gRecipe, "Recipe");
         }
 
 
