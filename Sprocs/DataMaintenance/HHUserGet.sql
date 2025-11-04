@@ -1,12 +1,14 @@
-create or alter procedure dbo.HHUserGet(@HHUserId int = 0, @LastName varchar(40) = '', @All bit = 0)
+create or alter procedure dbo.HHUserGet(@HHUserId int = 0, @LastName varchar(40) = '', @All bit = 0, @IncludeBlank bit = 0)
 as
 begin 
-	select @LastName = nullif(@LastName, '')
+	select @LastName = nullif(@LastName, ''), @IncludeBlank = isnull(@IncludeBlank, 0)
 	select h.HHUserId, h.FirstName, h.LastName, h.UserName
 	from HHUser h 
 	where h.HHUserId = @HHUserId
 	or h.LastName like '%' + @LastName + '%'
 	or @All = 1
+	union select 0, '', '', ''
+	where @IncludeBlank = 1
 	order by h.LastName
 end
 go

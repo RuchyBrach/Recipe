@@ -101,10 +101,11 @@ create table dbo.CookBook(
     CookBookName varchar(150) not null 
         constraint u_CookBook_CookBookName unique 
         constraint ck_CookBook_CookBookName_cannot_be_blank check(CookBookName <> ''), 
-    Price Decimal (10,2) not null constraint ck_CookBook_CookBookDateCreated_cannot_be_negative check(Price > 0), 
+    Price Decimal (10,2) not null constraint ck_CookBook_Price_must_be_greater_than_0 check(Price > 0), 
     CookBookDateCreated date not null default getdate() constraint ck_CookBood_CookBookDateCreated_cannot_be_greater_than_current_date check(CookBookDateCreated <= getdate()), 
 	CookBookActive bit not null default 1, 
     CookBookPic as concat('CookBook_', replace(CookBookName, ' ', '_'), '.jpg') persisted
+	
 )
 go 
 
@@ -114,7 +115,7 @@ create table dbo.CookBookRecipe(
     RecipeId int not null constraint f_Recipe_CookBookRecipe foreign key references Recipe(RecipeId), 
     RecipeSequence int not null constraint ck_CookBookRecipe_RecipeSequence_must_be_greater_than_0 check(RecipeSequence > 0), 
     constraint u_CookBookRecipe_RecipeId_CookBookId unique(RecipeId, CookBookId), 
-    constraint u_CookBookRecipe_RecipeId_RecipeSequence unique(RecipeId, RecipeSequence)
+    constraint u_CookBookRecipe_CookBookId_RecipeSequence unique(CookBookId, RecipeSequence)
 )
 go 
 

@@ -38,13 +38,13 @@
             lblRecipesCount = new Label();
             lblMealsCount = new Label();
             lblCookbooksCount = new Label();
+            lblType = new Label();
+            lblNumber = new Label();
             lblWelcome = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             btnRecipeList = new Button();
             btnMealList = new Button();
             btnCookbookList = new Button();
-            lblType = new Label();
-            lblNumber = new Label();
             tblMain.SuspendLayout();
             tblInfoCount.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -107,6 +107,7 @@
             tblInfoCount.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tblInfoCount.Size = new Size(654, 236);
             tblInfoCount.TabIndex = 2;
+            tblInfoCount.TabStop = true;
             // 
             // lblRecipes
             // 
@@ -115,7 +116,7 @@
             lblRecipes.Location = new Point(4, 73);
             lblRecipes.Name = "lblRecipes";
             lblRecipes.Size = new Size(319, 28);
-            lblRecipes.TabIndex = 0;
+            lblRecipes.TabIndex = 2;
             lblRecipes.Text = "Recipes";
             lblRecipes.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -126,7 +127,7 @@
             lblMeals.Location = new Point(4, 131);
             lblMeals.Name = "lblMeals";
             lblMeals.Size = new Size(319, 28);
-            lblMeals.TabIndex = 1;
+            lblMeals.TabIndex = 4;
             lblMeals.Text = "Meals";
             lblMeals.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -137,7 +138,7 @@
             lblCookbooks.Location = new Point(4, 191);
             lblCookbooks.Name = "lblCookbooks";
             lblCookbooks.Size = new Size(319, 28);
-            lblCookbooks.TabIndex = 2;
+            lblCookbooks.TabIndex = 6;
             lblCookbooks.Text = "Cookbooks";
             lblCookbooks.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -158,7 +159,7 @@
             lblMealsCount.Location = new Point(330, 131);
             lblMealsCount.Name = "lblMealsCount";
             lblMealsCount.Size = new Size(320, 28);
-            lblMealsCount.TabIndex = 4;
+            lblMealsCount.TabIndex = 5;
             lblMealsCount.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblCookbooksCount
@@ -168,8 +169,32 @@
             lblCookbooksCount.Location = new Point(330, 191);
             lblCookbooksCount.Name = "lblCookbooksCount";
             lblCookbooksCount.Size = new Size(320, 28);
-            lblCookbooksCount.TabIndex = 5;
+            lblCookbooksCount.TabIndex = 7;
             lblCookbooksCount.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblType
+            // 
+            lblType.AutoSize = true;
+            lblType.BackColor = SystemColors.ActiveBorder;
+            lblType.Dock = DockStyle.Fill;
+            lblType.Location = new Point(4, 1);
+            lblType.Name = "lblType";
+            lblType.Size = new Size(319, 57);
+            lblType.TabIndex = 0;
+            lblType.Text = "Type";
+            lblType.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblNumber
+            // 
+            lblNumber.AutoSize = true;
+            lblNumber.BackColor = SystemColors.ActiveBorder;
+            lblNumber.Dock = DockStyle.Fill;
+            lblNumber.Location = new Point(330, 1);
+            lblNumber.Name = "lblNumber";
+            lblNumber.Size = new Size(320, 57);
+            lblNumber.TabIndex = 1;
+            lblNumber.Text = "Number";
+            lblNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblWelcome
             // 
@@ -199,7 +224,7 @@
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Size = new Size(654, 64);
-            tableLayoutPanel1.TabIndex = 6;
+            tableLayoutPanel1.TabIndex = 3;
             // 
             // btnRecipeList
             // 
@@ -208,7 +233,7 @@
             btnRecipeList.Location = new Point(3, 3);
             btnRecipeList.Name = "btnRecipeList";
             btnRecipeList.Size = new Size(212, 58);
-            btnRecipeList.TabIndex = 3;
+            btnRecipeList.TabIndex = 0;
             btnRecipeList.Text = "Recipe List";
             btnRecipeList.UseVisualStyleBackColor = true;
             // 
@@ -219,7 +244,7 @@
             btnMealList.Location = new Point(221, 3);
             btnMealList.Name = "btnMealList";
             btnMealList.Size = new Size(212, 58);
-            btnMealList.TabIndex = 4;
+            btnMealList.TabIndex = 1;
             btnMealList.Text = "Meal List";
             btnMealList.UseVisualStyleBackColor = true;
             // 
@@ -230,33 +255,9 @@
             btnCookbookList.Location = new Point(439, 3);
             btnCookbookList.Name = "btnCookbookList";
             btnCookbookList.Size = new Size(212, 58);
-            btnCookbookList.TabIndex = 5;
+            btnCookbookList.TabIndex = 2;
             btnCookbookList.Text = "Cookbook List";
             btnCookbookList.UseVisualStyleBackColor = true;
-            // 
-            // lblType
-            // 
-            lblType.AutoSize = true;
-            lblType.BackColor = SystemColors.ActiveBorder;
-            lblType.Dock = DockStyle.Fill;
-            lblType.Location = new Point(4, 1);
-            lblType.Name = "lblType";
-            lblType.Size = new Size(319, 57);
-            lblType.TabIndex = 6;
-            lblType.Text = "Type";
-            lblType.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblNumber
-            // 
-            lblNumber.AutoSize = true;
-            lblNumber.BackColor = SystemColors.ActiveBorder;
-            lblNumber.Dock = DockStyle.Fill;
-            lblNumber.Location = new Point(330, 1);
-            lblNumber.Name = "lblNumber";
-            lblNumber.Size = new Size(320, 57);
-            lblNumber.TabIndex = 7;
-            lblNumber.Text = "Number";
-            lblNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmDashboard
             // 

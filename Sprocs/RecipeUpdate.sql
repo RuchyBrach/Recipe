@@ -4,20 +4,23 @@ create or alter proc dbo.RecipeUpdate(
 @CuisineId int ,
 @RecipeName varchar (200),
 @Calories int ,
-@DateTimeDraft datetime2 ,
-@DateTimePublished datetime2 ,
-@DateTimeArchived datetime2 ,
+@DateTimeDraft datetime2 output,
+@DateTimePublished datetime2 output,
+@DateTimeArchived datetime2 output,
 @Message varchar(500) = '' output
 )
 as 
 begin
 	declare @return int = 0
-	select @RecipeId = isnull(@RecipeId, 0)
+	select @RecipeId = isnull(@RecipeId, 0), @DateTimeDraft = isnull(@DateTimeDraft, CURRENT_TIMESTAMP)
 	
-	if @RecipeId = 0
+
+	if @RecipeId = 0 
 	begin
 		insert Recipe(HHUserId, CuisineId, RecipeName, Calories, DateTimeDraft, DateTimePublished, DateTimeArchived)
 		select @HHUserId, @CuisineId, @RecipeName, @Calories, @DateTimeDraft, @DateTimePublished, @DateTimeArchived
+		
+		select @RecipeId = SCOPE_IDENTITY()
 	end
 	else
 	begin
@@ -34,3 +37,6 @@ begin
 
 	return @return
 end
+go
+
+select * from Recipe r

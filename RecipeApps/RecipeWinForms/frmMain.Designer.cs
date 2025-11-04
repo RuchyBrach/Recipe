@@ -38,7 +38,7 @@
             mnuMeals = new ToolStripMenuItem();
             mnuMealsList = new ToolStripMenuItem();
             mnuCookbooks = new ToolStripMenuItem();
-            mnuList = new ToolStripMenuItem();
+            mnuCookbookList = new ToolStripMenuItem();
             mnuNewCookbook = new ToolStripMenuItem();
             mnuAutoCreate = new ToolStripMenuItem();
             mnuDataMaintenance = new ToolStripMenuItem();
@@ -58,7 +58,7 @@
             mnuMain.Location = new Point(0, 0);
             mnuMain.Name = "mnuMain";
             mnuMain.Size = new Size(1100, 36);
-            mnuMain.TabIndex = 1;
+            mnuMain.TabIndex = 0;
             mnuMain.Text = "menuStrip1";
             // 
             // mnuFile
@@ -71,7 +71,7 @@
             // mnuDashboard
             // 
             mnuDashboard.Name = "mnuDashboard";
-            mnuDashboard.Size = new Size(224, 32);
+            mnuDashboard.Size = new Size(194, 32);
             mnuDashboard.Text = "Dashboard";
             // 
             // mnuRecipes
@@ -109,21 +109,21 @@
             // mnuMealsList
             // 
             mnuMealsList.Name = "mnuMealsList";
-            mnuMealsList.Size = new Size(224, 32);
+            mnuMealsList.Size = new Size(127, 32);
             mnuMealsList.Text = "List";
             // 
             // mnuCookbooks
             // 
-            mnuCookbooks.DropDownItems.AddRange(new ToolStripItem[] { mnuList, mnuNewCookbook, mnuAutoCreate });
+            mnuCookbooks.DropDownItems.AddRange(new ToolStripItem[] { mnuCookbookList, mnuNewCookbook, mnuAutoCreate });
             mnuCookbooks.Name = "mnuCookbooks";
             mnuCookbooks.Size = new Size(126, 32);
             mnuCookbooks.Text = "Cookbooks";
             // 
-            // mnuList
+            // mnuCookbookList
             // 
-            mnuList.Name = "mnuList";
-            mnuList.Size = new Size(234, 32);
-            mnuList.Text = "List";
+            mnuCookbookList.Name = "mnuCookbookList";
+            mnuCookbookList.Size = new Size(234, 32);
+            mnuCookbookList.Text = "List";
             // 
             // mnuNewCookbook
             // 
@@ -147,7 +147,7 @@
             // mnuEditData
             // 
             mnuEditData.Name = "mnuEditData";
-            mnuEditData.Size = new Size(224, 32);
+            mnuEditData.Size = new Size(178, 32);
             mnuEditData.Text = "Edit Data";
             // 
             // mnuWindows
@@ -160,13 +160,13 @@
             // mnuTile
             // 
             mnuTile.Name = "mnuTile";
-            mnuTile.Size = new Size(224, 32);
+            mnuTile.Size = new Size(169, 32);
             mnuTile.Text = "Tile";
             // 
             // mnuCascade
             // 
             mnuCascade.Name = "mnuCascade";
-            mnuCascade.Size = new Size(224, 32);
+            mnuCascade.Size = new Size(169, 32);
             mnuCascade.Text = "Cascade";
             // 
             // tsMain
@@ -175,7 +175,7 @@
             tsMain.Location = new Point(0, 36);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(1100, 25);
-            tsMain.TabIndex = 2;
+            tsMain.TabIndex = 1;
             tsMain.Text = "toolStrip1";
             // 
             // frmMain
@@ -210,7 +210,7 @@
         private ToolStripMenuItem mnuMeals;
         private ToolStripMenuItem mnuMealsList;
         private ToolStripMenuItem mnuCookbooks;
-        private ToolStripMenuItem mnuList;
+        private ToolStripMenuItem mnuCookbookList;
         private ToolStripMenuItem mnuNewCookbook;
         private ToolStripMenuItem mnuAutoCreate;
         private ToolStripMenuItem mnuDataMaintenance;

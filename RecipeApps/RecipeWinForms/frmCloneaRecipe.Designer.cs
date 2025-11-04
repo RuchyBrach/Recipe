@@ -1,6 +1,6 @@
 ﻿namespace RecipeWinForms
 {
-    partial class frmRecipeList
+    partial class frmCloneaRecipe
     {
         /// <summary>
         /// Required designer variable.
@@ -29,69 +29,68 @@
         private void InitializeComponent()
         {
             tblMain = new TableLayoutPanel();
-            btnNewRecipe = new Button();
-            gRecipeList = new DataGridView();
+            lstRecipeName = new ComboBox();
+            btnClone = new Button();
             tblMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gRecipeList).BeginInit();
             SuspendLayout();
             // 
             // tblMain
             // 
-            tblMain.ColumnCount = 1;
-            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tblMain.Controls.Add(btnNewRecipe, 0, 0);
-            tblMain.Controls.Add(gRecipeList, 0, 1);
+            tblMain.ColumnCount = 2;
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 372F));
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tblMain.Controls.Add(lstRecipeName, 0, 0);
+            tblMain.Controls.Add(btnClone, 0, 1);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
             tblMain.RowCount = 2;
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblMain.Size = new Size(1000, 609);
+            tblMain.Size = new Size(713, 182);
             tblMain.TabIndex = 0;
             // 
-            // btnNewRecipe
+            // lstRecipeName
             // 
-            btnNewRecipe.Anchor = AnchorStyles.Left;
-            btnNewRecipe.AutoSize = true;
-            btnNewRecipe.Location = new Point(3, 15);
-            btnNewRecipe.Margin = new Padding(3, 15, 3, 15);
-            btnNewRecipe.Name = "btnNewRecipe";
-            btnNewRecipe.Size = new Size(168, 38);
-            btnNewRecipe.TabIndex = 0;
-            btnNewRecipe.Text = "New Recipe";
-            btnNewRecipe.UseVisualStyleBackColor = true;
+            lstRecipeName.Anchor = AnchorStyles.Right;
+            lstRecipeName.FormattingEnabled = true;
+            lstRecipeName.Location = new Point(20, 20);
+            lstRecipeName.Margin = new Padding(20, 20, 3, 20);
+            lstRecipeName.Name = "lstRecipeName";
+            lstRecipeName.Size = new Size(318, 36);
+            lstRecipeName.TabIndex = 0;
             // 
-            // gRecipeList
+            // btnClone
             // 
-            gRecipeList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gRecipeList.Dock = DockStyle.Fill;
-            gRecipeList.Location = new Point(3, 71);
-            gRecipeList.Name = "gRecipeList";
-            gRecipeList.RowHeadersWidth = 51;
-            gRecipeList.Size = new Size(994, 535);
-            gRecipeList.TabIndex = 1;
+            btnClone.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClone.AutoSize = true;
+            btnClone.Location = new Point(244, 79);
+            btnClone.Name = "btnClone";
+            btnClone.Size = new Size(94, 38);
+            btnClone.TabIndex = 1;
+            btnClone.Text = "Clone";
+            btnClone.UseVisualStyleBackColor = true;
             // 
-            // frmRecipeList
+            // frmCloneaRecipe
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 609);
+            ClientSize = new Size(713, 182);
             Controls.Add(tblMain);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
-            Name = "frmRecipeList";
-            Text = "Recipe List";
+            Name = "frmCloneaRecipe";
+            Text = "Hearty Hearth - Clone a Recipe";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)gRecipeList).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private TableLayoutPanel tblMain;
-        private Button btnNewRecipe;
-        private DataGridView gRecipeList;
+        private ComboBox lstRecipeName;
+        private Button btnClone;
     }
 }
