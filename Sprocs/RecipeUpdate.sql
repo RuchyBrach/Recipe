@@ -39,4 +39,4 @@ begin
 end
 go
 
-select * from Recipe r
+

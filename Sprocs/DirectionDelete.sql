@@ -1,6 +1,6 @@
 use HeartyHearthdb
 go
-create or alter proc dbo.RecipeDirectionDelete(
+create or alter proc dbo.DirectionDelete(
 	@DirectionId int = 0,
 	@Message varchar (500) = '' output
 )

@@ -1,3 +1,5 @@
+use HeartyHearthdb 
+go
 create or alter proc dbo.RecipeStatusUpdate(
 @RecipeId int output,
 @DateTimeDraft datetime2 output,
