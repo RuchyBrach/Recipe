@@ -349,10 +349,10 @@
             // tbDirections
             // 
             tbDirections.Controls.Add(tblDirections);
-            tbDirections.Location = new Point(4, 37);
+            tbDirections.Location = new Point(4, 29);
             tbDirections.Name = "tbDirections";
             tbDirections.Padding = new Padding(3);
-            tbDirections.Size = new Size(699, 238);
+            tbDirections.Size = new Size(699, 246);
             tbDirections.TabIndex = 1;
             tbDirections.Text = "Directions";
             tbDirections.UseVisualStyleBackColor = true;
@@ -369,7 +369,7 @@
             tblDirections.RowCount = 2;
             tblDirections.RowStyles.Add(new RowStyle());
             tblDirections.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblDirections.Size = new Size(693, 232);
+            tblDirections.Size = new Size(693, 240);
             tblDirections.TabIndex = 0;
             // 
             // btnSaveDirection
@@ -389,7 +389,7 @@
             gDirections.Location = new Point(3, 47);
             gDirections.Name = "gDirections";
             gDirections.RowHeadersWidth = 51;
-            gDirections.Size = new Size(687, 182);
+            gDirections.Size = new Size(687, 190);
             gDirections.TabIndex = 1;
             // 
             // tsMain
