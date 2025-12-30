@@ -43,7 +43,7 @@ namespace RecipeSystem
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("HHUserGet");
             SQLUtility.SetParamValue(cmd, "@All", 1);
-            SQLUtility.SetParamValue(cmd, "@IncludeBlank", 1);
+            SQLUtility.SetParamValue(cmd, "@IncludeBlank", includeblank);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }

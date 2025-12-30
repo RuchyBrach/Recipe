@@ -65,7 +65,10 @@ namespace RecipeWinForms
 
         private void GRecipeList_CellContentDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
             ShowRecipeEditForm(e.RowIndex);
             
         }

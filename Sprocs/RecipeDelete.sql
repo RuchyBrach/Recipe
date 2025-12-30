@@ -19,6 +19,12 @@ begin
 	begin try
 		begin tran
 
+		delete MealCourseRecipe
+		where RecipeId = @RecipeId
+
+		delete CookBookRecipe
+		where RecipeId = @RecipeId
+
 		delete RecipeIngredient
 		where RecipeId = @RecipeId
 

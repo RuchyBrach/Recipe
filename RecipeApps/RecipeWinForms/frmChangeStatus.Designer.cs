@@ -125,6 +125,7 @@
             txtDateTimeDraft.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtDateTimeDraft.Location = new Point(170, 264);
             txtDateTimeDraft.Name = "txtDateTimeDraft";
+            txtDateTimeDraft.ReadOnly = true;
             txtDateTimeDraft.Size = new Size(210, 34);
             txtDateTimeDraft.TabIndex = 7;
             txtDateTimeDraft.Tag = "";
@@ -134,6 +135,7 @@
             txtDateTimePublished.Anchor = AnchorStyles.Top;
             txtDateTimePublished.Location = new Point(386, 264);
             txtDateTimePublished.Name = "txtDateTimePublished";
+            txtDateTimePublished.ReadOnly = true;
             txtDateTimePublished.Size = new Size(210, 34);
             txtDateTimePublished.TabIndex = 8;
             txtDateTimePublished.Tag = "";
@@ -142,6 +144,7 @@
             // 
             txtDateTimeArchived.Location = new Point(602, 264);
             txtDateTimeArchived.Name = "txtDateTimeArchived";
+            txtDateTimeArchived.ReadOnly = true;
             txtDateTimeArchived.Size = new Size(210, 34);
             txtDateTimeArchived.TabIndex = 9;
             txtDateTimeArchived.Tag = "";

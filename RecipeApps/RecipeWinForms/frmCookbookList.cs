@@ -60,6 +60,10 @@ namespace RecipeWinForms
 
         private void GCookBookList_CellContentDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
+            if(e.RowIndex == -1)
+            {
+                return;
+            }
             ShowCookBookEdit(e.RowIndex);
         }
 

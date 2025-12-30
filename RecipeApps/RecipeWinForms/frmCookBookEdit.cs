@@ -18,8 +18,11 @@ namespace RecipeWinForms
             btnSave.Click += BtnSave_Click;
             btnDelete.Click += BtnDelete_Click;
             btnSaveRecipe.Click += BtnSaveRecipe_Click;
+            txtPrice.Validating += TxtPrice_Validating;
             gCookBookRecipe.CellContentClick += GCookBookRecipe_CellContentClick;
+            gCookBookRecipe.DataError += GCookBookRecipe_DataError;
             this.FormClosing += FrmCookBookEdit_FormClosing;
+
         }
 
         
@@ -34,7 +37,7 @@ namespace RecipeWinForms
             {
                 dtcookbook.Rows.Add();
             }
-            DataTable dtuser = CookBook.GetUserList();
+            DataTable dtuser = CookBook.GetUserList(true);
             WindowsFormsUtility.SetListBinding(lstUserName, dtuser, dtcookbook, "HHUser");
             WindowsFormsUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormsUtility.SetControlBinding(txtPrice, bindsource);
@@ -138,30 +141,38 @@ namespace RecipeWinForms
             }
         }
 
-        private void DeleteCookBookRecipe(int rowindex)
+        private void CookBookRecipeDelete(int rowindex, int columnindex)
         {
-            int id = WindowsFormsUtility.GetIdFromGrid(gCookBookRecipe, rowindex, "CookBookRecipeId");
-            if (id > 0)
+            if (gCookBookRecipe.Columns[columnindex].Tag?.ToString() == "deletecol" && rowindex > -1)
             {
-                try
+                if (rowindex == gCookBookRecipe.NewRowIndex)
                 {
-                    SQLUtility.DeleteChildTable(id, "CookBookRecipeDelete", "@CookBookRecipeId");
-                    LoadCookBookRecipes();
+                    return;
                 }
-                catch (Exception ex)
+                int id = WindowsFormsUtility.GetIdFromGrid(gCookBookRecipe, rowindex, "CookBookRecipeId");
+                
+                if (id > 0)
                 {
-                    MessageBox.Show(ex.Message, Application.ProductName);
+                    try
+                    {
+                        SQLUtility.DeleteChildTable(id, "CookBookRecipeDelete", "@CookBookRecipeId");
+                        LoadCookBookRecipes();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, Application.ProductName);
+                    }
                 }
-            }
-            else if (id < gCookBookRecipe.Rows.Count)
-            {
-                gCookBookRecipe.Rows.RemoveAt(rowindex);
+                else if (id < gCookBookRecipe.Rows.Count)
+                {
+                    gCookBookRecipe.Rows.RemoveAt(rowindex);
+                }
             }
         }
 
         private void GCookBookRecipe_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            DeleteCookBookRecipe(e.RowIndex);
+            CookBookRecipeDelete(e.RowIndex, e.ColumnIndex);
         }
 
 
@@ -180,7 +191,26 @@ namespace RecipeWinForms
             Save();
         }
 
-        
+        private void GCookBookRecipe_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("value must be int");
+            e.ThrowException = false;
+            e.Cancel = true;
+            gCookBookRecipe.CancelEdit();
+        }
+
+        private void TxtPrice_Validating(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if(tb == null) return;
+
+            if(!int.TryParse(tb.Text, out _))
+            {
+                MessageBox.Show("value must be int", Application.ProductName);
+                e.Cancel = true;
+                tb.Clear();
+            }
+        }
 
         private void FrmCookBookEdit_FormClosing(object? sender, FormClosingEventArgs e)
         {

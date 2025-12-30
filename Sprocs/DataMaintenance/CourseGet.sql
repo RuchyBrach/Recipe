@@ -7,6 +7,7 @@ begin
 	from Course c
 	where c.CourseId = @CourseId
 	or @All = 1
+	order by c.CourseSequence
 	return @return
 end 
 go

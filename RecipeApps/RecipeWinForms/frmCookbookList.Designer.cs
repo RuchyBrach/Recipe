@@ -66,8 +66,10 @@
             gCookBookList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gCookBookList.Dock = DockStyle.Fill;
             gCookBookList.Location = new Point(3, 71);
+            gCookBookList.MultiSelect = false;
             gCookBookList.Name = "gCookBookList";
             gCookBookList.RowHeadersWidth = 51;
+            gCookBookList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gCookBookList.Size = new Size(1094, 556);
             gCookBookList.TabIndex = 1;
             // 

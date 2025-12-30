@@ -24,11 +24,15 @@ namespace RecipeWinForms
             gIngredients.DataBindingComplete += GIngredients_DataBindingComplete;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gDirections.CellContentClick += GDirections_CellContentClick;
+            gIngredients.DataError += GIngredients_DataError;
+            gDirections.DataError += GDirections_DataError;
+            txtCalories.Validating += TxtCalories_Validating;
             this.Activated += FrmRecipeEdit_Activated;
             this.FormClosing += FrmRecipeEdit_FormClosing;
         }
 
         
+
         public void LoadForm(int recipeval)
         {
             recipeid = recipeval;
@@ -39,8 +43,8 @@ namespace RecipeWinForms
             {
                 dtrecipe.Rows.Add();
             }
-            DataTable dtusers = Recipe.GetUserList();
-            DataTable dtcuisine = Recipe.GetCuisineList();
+            DataTable dtusers = Recipe.GetUserList(true);
+            DataTable dtcuisine = Recipe.GetCuisineList(true);
             WindowsFormsUtility.SetListBinding(lstUserName, dtusers, dtrecipe, "HHUser");
             WindowsFormsUtility.SetListBinding(lstCuisineName, dtcuisine, dtrecipe, "Cuisine");
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
@@ -182,45 +186,64 @@ namespace RecipeWinForms
             }
         }
 
-        private void RecipeIngredientDelete(int rowindex)
+        private void RecipeIngredientDelete(int rowindex, int columnindex)
         {
-            int id = WindowsFormsUtility.GetIdFromGrid(gIngredients, rowindex, "RecipeIngredientId");
-            if (id > 0) 
+            if (gIngredients.Columns[columnindex].Tag?.ToString() == "deletecol" && rowindex >-1)
             {
-                try
+                if (rowindex == gIngredients.NewRowIndex)
                 {
-                    SQLUtility.DeleteChildTable(id, "RecipeIngredientDelete", "@RecipeIngredientId");
-                    LoadRecipeIngredients();
+                    return;
                 }
-                catch (Exception ex)
+                int id = WindowsFormsUtility.GetIdFromGrid(gIngredients, rowindex, "RecipeIngredientId");
+                if (id > 0)
                 {
-                    MessageBox.Show(ex.Message, Application.ProductName);
-                } 
+                    try
+                    {
+                        SQLUtility.DeleteChildTable(id, "RecipeIngredientDelete", "@RecipeIngredientId");
+                        LoadRecipeIngredients();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, Application.ProductName);
+                    }
+                }
+                else if (id < gIngredients.Rows.Count)
+                {
+                    gIngredients.Rows.RemoveAt(rowindex);
+                }
             }
-            else if (id < gIngredients.Rows.Count)
-            {
-                gIngredients.Rows.RemoveAt(rowindex);
-            }
+            
         }
 
-        private void DirectionDelete(int rowindex)
+        private void DirectionDelete(int rowindex, int columnindex)
         {
-            int id = WindowsFormsUtility.GetIdFromGrid(gDirections, rowindex, "DirectionId");
-            if (id > 0)
+            if (gDirections.Columns[columnindex].Tag?.ToString() == "deletecol" && rowindex > -1)
             {
-                try
+                if (rowindex == gDirections.NewRowIndex)
                 {
-                    SQLUtility.DeleteChildTable(id, "DirectionDelete", "@DirectionId");
-                    LoadDirections();
+                    return;
                 }
-                catch (Exception ex)
+                int id = WindowsFormsUtility.GetIdFromGrid(gDirections, rowindex, "DirectionId");
+                if (id > 0)
                 {
-                    MessageBox.Show(ex.Message, Application.ProductName);
+                    try
+                    {
+                        SQLUtility.DeleteChildTable(id, "DirectionDelete", "@DirectionId");
+                        LoadDirections();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, Application.ProductName);
+                    }
                 }
-            }
-            else if (id < gDirections.Rows.Count)
-            {
-                gDirections.Rows.RemoveAt(rowindex);
+                else if (id == 0)
+                {
+                    return;
+                }
+                else if (id < gDirections.Rows.Count)
+                {
+                    gDirections.Rows.RemoveAt(rowindex);
+                }
             }
         }
 
@@ -234,12 +257,12 @@ namespace RecipeWinForms
 
         private void GDirections_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            DirectionDelete(e.RowIndex);
+            DirectionDelete(e.RowIndex, e.ColumnIndex);
         }
 
         private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            RecipeIngredientDelete(e.RowIndex);
+            RecipeIngredientDelete(e.RowIndex, e.ColumnIndex);
         }
 
         
@@ -278,6 +301,23 @@ namespace RecipeWinForms
             Save();
         }
 
+
+        private void GIngredients_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("value must be int");
+            e.ThrowException = false;
+            e.Cancel = true;
+            gIngredients.CancelEdit();
+        }
+
+        private void GDirections_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("value must be int");
+            e.ThrowException = false;
+            e.Cancel = true;
+            gDirections.CancelEdit();
+        }
+
         private void FrmRecipeEdit_FormClosing(object? sender, FormClosingEventArgs e)
         {
             bindsource.EndEdit();
@@ -303,11 +343,26 @@ namespace RecipeWinForms
 
         }
 
+        private void TxtCalories_Validating(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb == null) return;
+
+            if (!int.TryParse(tb.Text, out _))
+            {
+                MessageBox.Show("value must be int", Application.ProductName);
+                e.Cancel = true;
+                tb.Clear();
+            }
+        }
+
         private void FrmRecipeEdit_Activated(object? sender, EventArgs e)
         {
-
-            dtrecipe = Recipe.Load(recipeid);
-            bindsource.DataSource = dtrecipe;
+            if (recipeid > 0)
+            {
+                dtrecipe = Recipe.Load(recipeid);
+                bindsource.DataSource = dtrecipe;
+            }
         }
 
     }

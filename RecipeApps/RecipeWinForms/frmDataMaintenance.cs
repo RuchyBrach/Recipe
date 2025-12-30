@@ -1,6 +1,8 @@
 ﻿using CPUFramework;
+using Microsoft.Win32;
 using RecipeSystem;
 using System.Data;
+using System.Diagnostics;
 
 namespace RecipeWinForms
 {
@@ -10,20 +12,30 @@ namespace RecipeWinForms
         DataTable dtlist = new();
         TableTypeEnum currenttabletype = TableTypeEnum.HHUser;
         string deletecolname = "deletecol";
-
+        private bool loading;
         public frmDataMaintenance()
         {
             InitializeComponent();
             btnSave.Click += BtnSave_Click;
-            SetUpRadioButtons();
-            BindData(currenttabletype);
             gData.CellContentClick += GData_CellContentClick;
+            gData.DataError += GData_DataError;
             this.FormClosing += FrmDataMaintenance_FormClosing;
+            this.Load += FrmDataMaintenance_Load;
+        }
+
+        private void FrmDataMaintenance_Load(object? sender, EventArgs e)
+        {
+            loading = true;
+            SetUpRadioButtons();
+            currenttabletype = TableTypeEnum.HHUser;
+            optUsers.Checked = true;
+            BindData(currenttabletype);
+            loading = false;
+
         }
 
         private void BindData(TableTypeEnum tabletype)
         {
-            currenttabletype = tabletype;
             dtlist = DataMaintenance.GetDataList(currenttabletype.ToString());
             gData.Columns.Clear();
             gData.DataSource = dtlist;
@@ -33,18 +45,18 @@ namespace RecipeWinForms
 
         private void SetUpRadioButtons()
         {
-            foreach(Control c in pnlOptionButtons.Controls)
-            {
-                if(c is RadioButton)
-                {
-                    c.Click += C_Click;
-                }
-            }
             optUsers.Tag = TableTypeEnum.HHUser;
             optCuisines.Tag = TableTypeEnum.Cuisine;
             optIngredients.Tag = TableTypeEnum.Ingredient;
             optMeasurements.Tag = TableTypeEnum.MeasType;
             optCourses.Tag = TableTypeEnum.Course;
+            foreach (Control c in pnlOptionButtons.Controls)
+            {
+                if(c is RadioButton rb)
+                {
+                    rb.CheckedChanged += Rb_CheckedChanged;
+                }
+            }
         }
 
         private bool Save()
@@ -69,36 +81,50 @@ namespace RecipeWinForms
 
         private void Delete(int rowindex)
         {
-            int id = WindowsFormsUtility.GetIdFromGrid(gData, rowindex, currenttabletype.ToString() + "Id");
-            if (id != 0)
-            {
-                try
+                int id = WindowsFormsUtility.GetIdFromGrid(gData, rowindex, currenttabletype.ToString() + "Id");
+                if (id != 0)
                 {
-                    DataMaintenance.DeleteRow(currenttabletype.ToString(), id);
-                    BindData(currenttabletype);
+                    try
+                    {
+                        DataMaintenance.DeleteRow(currenttabletype.ToString(), id);
+                        BindData(currenttabletype);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, Application.ProductName);
+                    }
                 }
-                catch(Exception ex)
+                else if (id == 0)
                 {
-                    MessageBox.Show(ex.Message, Application.ProductName);
+                    return;
                 }
-            }  
-            else if(id == 0 && rowindex < gData.Rows.Count)
-            {
-                gData.Rows.Remove(gData.Rows[rowindex]);
-            }
+                else if (id < gData.Rows.Count)
+                {
+                    gData.Rows.RemoveAt(rowindex);
+                }
         }
 
-        private void C_Click(object? sender, EventArgs e)
+        private void Rb_CheckedChanged(object? sender, EventArgs e)
         {
-            if(sender is Control && ((Control)sender).Tag is TableTypeEnum)
-            {
-                BindData((TableTypeEnum)((Control)sender).Tag);
-;           }
+            if (loading) return;
+
+            var rb = sender as RadioButton;
+            if (rb == null) return;
+
+            var table = (TableTypeEnum)rb.Tag;
+            if (table == currenttabletype) return;
+
+            currenttabletype = table;
+            BindData(table);
         }
 
         private void GData_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            if (gData.Columns[e.ColumnIndex].Name == deletecolname)
+            if (e.RowIndex == gData.NewRowIndex)
+            {
+                return;
+            }
+            if (gData.Columns[e.ColumnIndex].Name == deletecolname && e.RowIndex > -1)
             {
                 string message = $"Are you sure you want to delete this {currenttabletype.ToString()}?";
                 if (currenttabletype == TableTypeEnum.HHUser)
@@ -146,6 +172,13 @@ namespace RecipeWinForms
             Save();
         }
 
-        
+        private void GData_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("value must be int");
+            e.ThrowException = false;
+            e.Cancel = true;
+            gData.CancelEdit();
+        }
+
     }
 }

@@ -67,6 +67,7 @@
             gRecipeList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gRecipeList.Dock = DockStyle.Fill;
             gRecipeList.Location = new Point(3, 71);
+            gRecipeList.MultiSelect = false;
             gRecipeList.Name = "gRecipeList";
             gRecipeList.RowHeadersWidth = 51;
             gRecipeList.Size = new Size(994, 535);

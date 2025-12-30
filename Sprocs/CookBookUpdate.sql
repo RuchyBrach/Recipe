@@ -2,7 +2,7 @@ create or alter proc dbo.CookBookUpdate(
 @CookBookId int output, 
 @HHUserId int, 
 @CookBookName varchar(200), 
-@Price int, 
+@Price decimal, 
 @CookBookDateCreated datetime2 output, 
 @CookBookActive bit,
 @Message varchar(500) = '' output
@@ -10,7 +10,7 @@ create or alter proc dbo.CookBookUpdate(
 as
 begin
 	declare @return int = 0
-	select @CookBookId = isnull(@CookBookId, 0), @CookBookDateCreated = isnull(@CookBookDateCreated, CURRENT_TIMESTAMP)
+	select @CookBookId = isnull(@CookBookId, 0), @CookBookDateCreated = isnull(@CookBookDateCreated, CURRENT_TIMESTAMP), @CookBookActive = isnull(@CookBookActive, 0)
 
 	if @CookBookId = 0 
 	begin
