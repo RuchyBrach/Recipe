@@ -36,6 +36,11 @@ namespace RecipeWinForms
 
         private void BindData(TableTypeEnum tabletype)
         {
+            if (gData.IsCurrentCellInEditMode)
+            {
+                gData.CancelEdit();
+                return;
+            }
             dtlist = DataMaintenance.GetDataList(currenttabletype.ToString());
             gData.Columns.Clear();
             gData.DataSource = dtlist;
@@ -109,7 +114,7 @@ namespace RecipeWinForms
             if (loading) return;
 
             var rb = sender as RadioButton;
-            if (rb == null) return;
+            if (rb == null || !rb.Checked) return;
 
             var table = (TableTypeEnum)rb.Tag;
             if (table == currenttabletype) return;

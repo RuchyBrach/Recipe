@@ -43,8 +43,8 @@ namespace RecipeWinForms
             {
                 dtrecipe.Rows.Add();
             }
-            DataTable dtusers = Recipe.GetUserList(true);
-            DataTable dtcuisine = Recipe.GetCuisineList(true);
+            DataTable dtusers = Recipe.GetUserList(false);
+            DataTable dtcuisine = Recipe.GetCuisineList(false);
             WindowsFormsUtility.SetListBinding(lstUserName, dtusers, dtrecipe, "HHUser");
             WindowsFormsUtility.SetListBinding(lstCuisineName, dtcuisine, dtrecipe, "Cuisine");
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
@@ -75,7 +75,7 @@ namespace RecipeWinForms
             dtrecipeingredient = Recipe.LoadIngredientsByRecipeId(recipeid);
             gIngredients.Columns.Clear();
             gIngredients.DataSource = dtrecipeingredient;
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("MeasType"), "MeasType", "MeasTypeName");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("MeasType", true), "MeasType", "MeasTypeName");
             WindowsFormsUtility.AddComboBoxToGrid(gIngredients, DataMaintenance.GetDataList("Ingredient"), "Ingredient", "IngredientName");
             WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gIngredients, "RecipeIngredient");

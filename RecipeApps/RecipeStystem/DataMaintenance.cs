@@ -26,14 +26,14 @@ namespace RecipeSystem
 
         public static DataTable GetRecipeList()
         {
-            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeListGet");
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
             SQLUtility.SetParamValue(cmd, "@All", 1);
             return SQLUtility.GetDataTable(cmd);
         }
 
         public static DataTable GetCookBookList()
         {
-            SqlCommand cmd = SQLUtility.GetSQLCommand("CookBookListGet");
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CookBookGet");
             SQLUtility.SetParamValue(cmd, "@All", 1);
             return SQLUtility.GetDataTable(cmd);
         }

@@ -1,6 +1,7 @@
 create or alter proc dbo.MeasTypeGet(
 	@MeasTypeId int = 0, 
 	@All int = 0, 
+	@IncludeBlank int = 0,
 	@Message varchar(500) = '' output)
 as 
 begin 
@@ -12,7 +13,10 @@ begin
 	from MeasType m 
 	where @MeasTypeId = m.MeasTypeId
 	or @All = 1
+	union select 0, ''
+	where @IncludeBlank = 1
 	order by m.MeasTypeName
+	
 	return @return
 end
 go

@@ -1,13 +1,22 @@
-create or alter procedure dbo.RecipeGet(@RecipeId int = 0, @RecipeName varchar(200) = '', @All bit = 0, @IncludeBlank bit = 0)
+create or alter procedure dbo.RecipeGet(
+@RecipeId int = 0, 
+@RecipeName varchar(200) = '', 
+@All bit = 0, 
+@IncludeBlank bit = 0)
 as
 begin 
 	select @RecipeName = nullif(@RecipeName, '')
-	select r.HHUserId, r.CuisineId, r.RecipeId, r.RecipeName, r.Calories, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipeStatus, r.RecipePic
+	select r.HHUserId, r.CuisineId, r.RecipeId, r.RecipeName, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipeStatus, h.UserName,  r.Calories, 'Num Ingredients' = count(ri.RecipeId), r.RecipePic
 	from Recipe r 
+	join HHUser h 
+	on r.HHUserId = h.HHUserId
+	join RecipeIngredient ri
+	on r.RecipeId = ri.RecipeId
 	where r.RecipeId = @RecipeId
 	or r.RecipeName like '%' + @RecipeName + '%'
 	or @All = 1
-	union select 0, 0, 0, '', 0, '', '', '', '', ''
+	group by r.RecipeName, r.RecipeStatus, h.UserName, r.Calories, r.RecipeId, r.HHUserId, r.CuisineId, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipePic
+	union select 0, 0, 0, '', '', '', '', '', '', 0, 0, ''
 	where @IncludeBlank = 1
 	order by r.RecipeName, r.Calories, r.DateTimeDraft
 end
