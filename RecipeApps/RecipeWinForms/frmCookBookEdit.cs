@@ -37,7 +37,7 @@ namespace RecipeWinForms
             {
                 dtcookbook.Rows.Add();
             }
-            DataTable dtuser = CookBook.GetUserList(true);
+            DataTable dtuser = CookBook.GetUserList();
             WindowsFormsUtility.SetListBinding(lstUserName, dtuser, dtcookbook, "HHUser");
             WindowsFormsUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormsUtility.SetControlBinding(txtPrice, bindsource);
