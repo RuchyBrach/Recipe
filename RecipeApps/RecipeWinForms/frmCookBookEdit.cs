@@ -204,7 +204,7 @@ namespace RecipeWinForms
             var tb = sender as TextBox;
             if(tb == null) return;
 
-            if(!int.TryParse(tb.Text, out _))
+            if(!decimal.TryParse(tb.Text, out _))
             {
                 MessageBox.Show("value must be int", Application.ProductName);
                 e.Cancel = true;
