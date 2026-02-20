@@ -2,7 +2,7 @@ create or alter proc dbo.CookBookUpdate(
 @CookBookId int output, 
 @HHUserId int, 
 @CookBookName varchar(200), 
-@Price decimal, 
+@Price decimal (10, 2), 
 @CookBookDateCreated datetime2 output, 
 @CookBookActive bit,
 @Message varchar(500) = '' output
@@ -33,5 +33,7 @@ begin
 	return @return
 end
 go
+
+select * from Cookbook
 
 --exec CookBookUpdate
