@@ -11,7 +11,7 @@ begin
 	from CookBook c
 	join HHUser h 
 	on c.HHUserId = h.HHUserId
-	join CookBookRecipe cbr
+	left join CookBookRecipe cbr
 	on c.CookBookId = cbr.CookBookId
 	where c.CookBookId = @CookBookId 
 	or @All = 1
