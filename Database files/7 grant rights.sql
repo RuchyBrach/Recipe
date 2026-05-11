@@ -2,6 +2,7 @@ use HeartyHearthdb
 go
 --select concat('grant execute on ', r.ROUTINE_NAME, ' to approle')
 --from INFORMATION_SCHEMA.ROUTINES r
+--where r.ROUTINE_NAME not like '%recipedirection%' and r.ROUTINE_NAME not like '%cuising%'
 
 grant execute on RecipeStatusUpdate to approle
 grant execute on RecipeGet to approle
@@ -9,10 +10,8 @@ grant execute on CuisineGet to approle
 grant execute on HHUserGet to approle
 grant execute on RecipeListGet to approle
 grant execute on CourseGet to approle
-grant execute on RecipeDirectionUpdate to approle
 grant execute on RecipeIngredientUpdate to approle
 grant execute on CookBookRecipeUpdate to approle
-grant execute on RecipeDirectionGet to approle
 grant execute on RecipeIngredientGet to approle
 grant execute on MeasTypeDelete to approle
 grant execute on CuisineDelete to approle
@@ -21,11 +20,9 @@ grant execute on IngredientDelete to approle
 grant execute on CourseDelete to approle
 grant execute on MeasTypeUpdate to approle
 grant execute on IngredientUpdate to approle
-grant execute on CuisingUpdate to approle
 grant execute on HHUserUpdate to approle
 grant execute on CourseUpdate to approle
 grant execute on CuisineUpdate to approle
-grant execute on RecipeDirectionDelete to approle
 grant execute on RecipeIngredientDelete to approle
 grant execute on CookBookRecipeDelete to approle
 grant execute on IngredientGet to approle

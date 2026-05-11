@@ -22,4 +22,3 @@ begin
 	return @return
 end
 
-exec RecipeDirectionGet @RecipeId = 15

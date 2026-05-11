@@ -8,9 +8,9 @@ begin
 	select @RecipeName = nullif(@RecipeName, '')
 	select r.HHUserId, r.CuisineId, r.RecipeId, r.RecipeName, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipeStatus, h.UserName,  r.Calories, 'Num Ingredients' = count(ri.RecipeId), r.RecipePic
 	from Recipe r 
-	join HHUser h 
+	left join HHUser h 
 	on r.HHUserId = h.HHUserId
-	join RecipeIngredient ri
+	left join RecipeIngredient ri
 	on r.RecipeId = ri.RecipeId
 	where r.RecipeId = @RecipeId
 	or r.RecipeName like '%' + @RecipeName + '%'
