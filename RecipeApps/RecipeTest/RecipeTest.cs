@@ -6,48 +6,45 @@ namespace RecipeTest
 {
     public class RecipeTest
     {
-        //string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
-        //string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
         string liveconnstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString(liveconnstring, true);
+            DBManager.SetConnectionString(connstring, true);
         }
 
         
         private DataTable GetDataTable(string sql)
         {
             DataTable dt = new();
-            //DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(testconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
-            //DBManager.SetConnectionString(connstring, false);
+            DBManager.SetConnectionString(connstring, false);
             return dt;
         }
         
         private int GetFirstColumnFirstRowValue(string sql)
         {
             int n = 0;
-            //DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(testconnstring, false);
             n = SQLUtility.GetFirstColumnFirstRowValue(sql);
-            //DBManager.SetConnectionString(connstring, false);
+            DBManager.SetConnectionString(connstring, false);
             return n;
         }
         
         private void ExecuteSQL(string sql)
         {
-            //DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(testconnstring, false);
             SQLUtility.ExecuteSQL(sql);
-            //DBManager.SetConnectionString(connstring, false);
+            DBManager.SetConnectionString(connstring, false);
         }
 
         [Test]
         [TestCase(75, "02-02-2010")]
         public void InsertNewRecipe(int calories, DateTime datetimedraft)
         {
-            DataTable dt = GetDataTable("select * from recipe where recipeid = 0");
-            DataRow r = dt.Rows.Add();
-            Assume.That(dt.Rows.Count == 1);
             int hhuserid = GetFirstColumnFirstRowValue("select top 1 hhuserid from hhuser");
             Assume.That(hhuserid > 0, "can't run test, no users in DB");
             int cuisineid = GetFirstColumnFirstRowValue("select top 1 cuisineid from cuisine");
@@ -55,13 +52,13 @@ namespace RecipeTest
             DateTime uniquecode = DateTime.Now; 
             TestContext.WriteLine("insert recipe with hhuserid = " + hhuserid);
 
-            r["HHUserId"] = hhuserid;
-            r["CuisineId"] = cuisineid;
-            r["RecipeName"] = "TestRecipe " + uniquecode;
-            r["Calories"] = calories;
-            r["DateTimeDraft"] = datetimedraft;
-            bizRecipe rec= new();
-            rec.Save(dt);
+            bizRecipe rec = new();
+            rec.HHUserId = hhuserid;
+            rec.CuisineId = cuisineid;
+            rec.RecipeName = "TestRecipe " + uniquecode;
+            rec.Calories = calories;
+            rec.DateTimeDraft = datetimedraft;
+            rec.Save();
 
             int newid = GetFirstColumnFirstRowValue("select * from recipe r where r.recipename = 'TestRecipe " + uniquecode + "'");
 
@@ -138,7 +135,8 @@ namespace RecipeTest
             TestContext.WriteLine("existing recipe without direction, with id = " + recipeid + " " + recipedesc);
             TestContext.WriteLine("ensure that app can delete " + recipeid);
             bizRecipe rec = new();
-            rec.Delete(dt);
+            rec.Load(recipeid);
+            rec.Delete();
             DataTable dtafterdelete = GetDataTable("select * from recipe where recipeid = " + recipeid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "record with recipeid " + recipeid + "exists in DB");
             TestContext.WriteLine("Record with recipeid" + recipeid + "does not exist in DB");
@@ -197,8 +195,8 @@ namespace RecipeTest
             TestContext.WriteLine("existing reciep with id + " + recipeid);
             TestContext.WriteLine("ensure that app loads recipe " + recipeid);
             bizRecipe rec = new();
-            DataTable dt = rec.Load(recipeid);
-            int loadedid = (int)dt.Rows[0]["recipeid"];
+            rec.Load(recipeid);
+            int loadedid = rec.RecipeId;
             Assert.IsTrue( loadedid == recipeid, loadedid + " <> " + recipeid);
             TestContext.WriteLine("Loaded recipe (" + loadedid + ")");
         }
