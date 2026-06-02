@@ -1,7 +1,10 @@
 ﻿
+using System.Data;
+using System.Data.SqlClient;
+
 namespace RecipeSystem
 {
-    public class bizRecipe : bizObject
+    public class bizRecipe : bizObject<bizRecipe>
     {
         private int _recipeid;
         private int _hhuserid;
@@ -12,9 +15,12 @@ namespace RecipeSystem
         private DateTime? _datetimepublished;
         private DateTime? _datetimearchived;
 
-        public bizRecipe() 
+        public List<bizRecipe> Search(string recipenameval)
         {
-
+            SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
+            SQLUtility.SetParamValue(cmd, "RecipeName", recipenameval);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
         }
 
         public int RecipeId
