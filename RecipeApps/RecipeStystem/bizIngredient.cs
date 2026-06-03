@@ -16,7 +16,7 @@ namespace RecipeSystem
         public List<bizIngredient> Search(string ingredientnameval)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
-            SQLUtility.SetParamValue(cmd, "RecipeName", ingredientnameval);
+            SQLUtility.SetParamValue(cmd, "IngredientName", ingredientnameval);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
