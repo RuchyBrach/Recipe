@@ -36,7 +36,7 @@ namespace RecipeWinForms
                 connstringkey = "liveconn";
 #endif
                 string connstring = ConfigurationManager.ConnectionStrings[connstringkey].ConnectionString;
-                DBManager.SetConnectionString(connstring, true, txtUserId.Text, txtPassword.Text);
+                RecipeSystem.DBManager.SetConnectionString(connstring, true, txtUserId.Text, txtPassword.Text);
                 loginsuccess = true;
                 Settings.Default.userid = txtUserId.Text;
                 Settings.Default.password = txtPassword.Text;

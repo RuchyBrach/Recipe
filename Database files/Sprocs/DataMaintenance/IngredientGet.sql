@@ -11,7 +11,7 @@ begin
 	select i.IngredientId, i.IngredientName
 	from Ingredient i 
 	where i.IngredientId = @IngredientId
-	or i.IngredientName = @IngredientName
+	or i.IngredientName like '%' + @IngredientName + '%'
 	or @All = 1
 	order by i.IngredientName
 	return @return

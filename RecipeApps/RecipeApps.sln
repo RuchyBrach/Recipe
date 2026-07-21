@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeSystem", "RecipeStyst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeTest", "RecipeTest\RecipeTest.csproj", "{5ADFED5F-C9A7-49FB-A245-129B0D2317AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeMAUI", "RecipeMAUI\RecipeMAUI.csproj", "{7E22B236-E619-4157-83A7-8F9B2A45AFE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeMAUI", "RecipeMAUI\RecipeMAUI.csproj", "{7E22B236-E619-4157-83A7-8F9B2A45AFE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeWeb", "..\..\rbrach\Software\RecipeWeb\RecipeWeb\RecipeWeb.csproj", "{240BA3A6-94D2-41DA-98F6-B98E0F4DEA1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeAPI", "RecipeAPI\RecipeAPI.csproj", "{4A33C52F-1AAF-46E2-A2A7-AFE1A6B9763A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{7E22B236-E619-4157-83A7-8F9B2A45AFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E22B236-E619-4157-83A7-8F9B2A45AFE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E22B236-E619-4157-83A7-8F9B2A45AFE9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{240BA3A6-94D2-41DA-98F6-B98E0F4DEA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240BA3A6-94D2-41DA-98F6-B98E0F4DEA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240BA3A6-94D2-41DA-98F6-B98E0F4DEA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240BA3A6-94D2-41DA-98F6-B98E0F4DEA1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A33C52F-1AAF-46E2-A2A7-AFE1A6B9763A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A33C52F-1AAF-46E2-A2A7-AFE1A6B9763A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A33C52F-1AAF-46E2-A2A7-AFE1A6B9763A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A33C52F-1AAF-46E2-A2A7-AFE1A6B9763A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

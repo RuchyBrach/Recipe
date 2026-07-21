@@ -18,7 +18,6 @@ namespace RecipeSystem
             SQLUtility.SetParamValue(cmd, "@CookBookId", cookbookid);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
-            
         }
         public static void Save(DataTable dtcookbook)
         {

@@ -1,3 +1,4 @@
+--recipeget
 create or alter procedure dbo.RecipeGet(
 @RecipeId int = 0, 
 @RecipeName varchar(200) = '', 
@@ -6,7 +7,7 @@ create or alter procedure dbo.RecipeGet(
 as
 begin 
 	select @RecipeName = nullif(@RecipeName, '')
-	select r.HHUserId, r.CuisineId, r.RecipeId, r.RecipeName, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipeStatus, h.UserName,  r.Calories, 'Num Ingredients' = count(ri.RecipeId), r.RecipePic
+	select r.HHUserId, r.CuisineId, r.RecipeId, r.RecipeName, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipeStatus, h.UserName,  r.Calories, NumIngredients = count(ri.RecipeId), r.RecipePic, r.Vegan
 	from Recipe r 
 	left join HHUser h 
 	on r.HHUserId = h.HHUserId
@@ -15,8 +16,8 @@ begin
 	where r.RecipeId = @RecipeId
 	or r.RecipeName like '%' + @RecipeName + '%'
 	or @All = 1
-	group by r.RecipeName, r.RecipeStatus, h.UserName, r.Calories, r.RecipeId, r.HHUserId, r.CuisineId, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipePic
-	union select 0, 0, 0, '', '', '', '', '', '', 0, 0, ''
+	group by r.RecipeName, r.RecipeStatus, h.UserName, r.Calories, r.RecipeId, r.HHUserId, r.CuisineId, r.DateTimeDraft, r.DateTimePublished, r.DateTimeArchived, r.RecipePic, r.Vegan
+	union select 0, 0, 0, '', '', '', '', '', '', 0, 0, '', CAST(0 AS bit)
 	where @IncludeBlank = 1
 	order by r.RecipeName, r.Calories, r.DateTimeDraft
 end
@@ -32,6 +33,7 @@ exec RecipeGet @RecipeName = '', @All = 1
 exec RecipeGet @RecipeName = null
 
 exec RecipeGet @All = 1
+exec RecipeGet @IncludeBlank = 1
 
 declare @Id int
 select top 1 @Id = r.RecipeId from Recipe r order by r.RecipeId

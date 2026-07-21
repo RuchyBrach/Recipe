@@ -1,5 +1,5 @@
 ﻿
-namespace RecipeStystem
+namespace RecipeSystem
 {
     public class DBManager
     {

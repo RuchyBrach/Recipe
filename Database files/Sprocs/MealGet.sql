@@ -1,7 +1,7 @@
-create or alter proc dbo.MealListGet(@All bit = 0)
+create or alter proc dbo.MealGet(@All bit = 0)
 as
 begin 
-	select m.MealName, h.UserName, 'Num Calories' = isnull(sum(r.Calories), 0), 'Num Courses' = count(distinct mc.CourseId), 'Num Recipes' = count(mcr.RecipeId)
+	select m.MealName, h.UserName, NumCalories = isnull(sum(r.Calories), 0), NumCourses = count(distinct mc.CourseId), NumRecipes = count(mcr.RecipeId), m.MealDesc
 	from Meal m 
 	left join HHUser h 
 	on m.HHUserId = h.HHUserId
@@ -11,11 +11,11 @@ begin
 	on mc.MealCourseId = mcr.MealCourseId
 	left join Recipe r 
 	on mcr.RecipeId = r.RecipeId
-	group by m.MealName, h.UserName
+	group by m.MealName, h.UserName, m.MealDesc
 	order by m.MealName
 end
 go
 
-exec MealListGet @All = 1
+exec MealGet @All = 1
 
 select * from Meal m 

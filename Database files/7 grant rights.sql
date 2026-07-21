@@ -40,6 +40,6 @@ grant execute on CookBookGet to approle
 grant execute on CookBookDelete to approle
 grant execute on RecipeDesc to approle
 grant execute on MealCal to approle
-grant execute on MealListGet to approle
+grant execute on MealGet to approle
 grant execute on RecipeDelete to approle
 grant execute on RecipeDashboardGet to approle

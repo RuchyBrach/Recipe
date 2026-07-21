@@ -14,11 +14,25 @@ namespace RecipeSystem
         private DateTime _datetimedraft;
         private DateTime? _datetimepublished;
         private DateTime? _datetimearchived;
+        private string _recipestatus = "";
+        private string _recipepic = "";
+        private bool _vegan;
+        private string _username = "";
+        private int _numingredients;
+        private string _cookbookname = "";
 
         public List<bizRecipe> Search(string recipenameval)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
             SQLUtility.SetParamValue(cmd, "RecipeName", recipenameval);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
+
+        public List<bizRecipe> GetByCookBook(string cookbooknameval)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGetByCookBook");
+            SQLUtility.SetParamValue(cmd, "CookBookName", cookbooknameval);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
@@ -122,6 +136,78 @@ namespace RecipeSystem
                 if(_datetimearchived != value)
                 {
                     _datetimearchived = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public string RecipeStatus
+        {
+            get => _recipestatus;
+            set
+            {
+                if (_recipestatus != value)
+                {
+                    _recipestatus = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public string RecipePic
+        {
+            get => _recipepic;
+            set
+            {
+                if (_recipepic != value)
+                {
+                    _recipepic = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public bool Vegan
+        {
+            get => _vegan;
+            set
+            {
+                if (_vegan != value)
+                {
+                    _vegan = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public string UserName
+        {
+            get => _username;
+            set
+            {
+                if (_username != value)
+                {
+                    _username = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public int NumIngredients
+        {
+            get => _numingredients;
+            set
+            {
+                if (_numingredients != value)
+                {
+                    _numingredients = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public string CookBookName
+        {
+            get => _cookbookname;
+            set
+            {
+                if (_cookbookname != value)
+                {
+                    _cookbookname = value;
                     InvokePropertyChanged();
                 }
             }

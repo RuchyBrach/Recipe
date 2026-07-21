@@ -29,7 +29,7 @@ create table dbo.Cuisine(
     CuisineId int not null identity primary key, 
     CuisineName varchar(100) not null 
         constraint u_Cuisine_CuisineName unique 
-        constraint ck_Cuisine_CuisineName_cannot_be_blank check (CuisineName > '')
+        constraint ck_Cuisine_CuisineName_cannot_be_blank check (CuisineName <> '')
 )
 go 
 
@@ -56,7 +56,8 @@ create table dbo.Recipe(
 
 )
 go
-
+alter table Recipe add Vegan bit not null default 0
+go
 create table dbo.Ingredient(
     IngredientId int not null identity primary key, 
     IngredientName varchar(75) not null 
@@ -108,7 +109,14 @@ create table dbo.CookBook(
 	
 )
 go 
-
+alter table CookBook add CookBookSkill int not null default 1, 
+CookBookSkillDesc as 
+case CookBookSkill
+when 1 then 'Beginner'
+when 2 then 'Intermediate'
+when 3 then 'Advanced'
+end persisted
+go
 create table dbo.CookBookRecipe(
     CookBookRecipeId int not null identity primary key, 
     CookBookId int not null constraint f_CookBook_CookBookRecipe foreign key references CookBook(CookBookId), 
@@ -130,7 +138,8 @@ create table dbo.Meal(
     MealPic as concat('Meal_', replace(MealName, ' ', '_'), '.jpg') persisted 
 )
 go 
-
+alter table Meal add MealDesc varchar(500) not null default ''
+go
 create table dbo.Course(
     CourseId int not null identity primary key, 
     CourseName varchar(30) not null 

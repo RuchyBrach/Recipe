@@ -22,7 +22,7 @@ public partial class Login : ContentPage
         try
         {
             MessageLbl.Text = "";
-            DBManager.SetConnectionString(App.ConnStringSetting, true, UserNameTxt.Text, PasswordTxt.Text);
+            RecipeSystem.DBManager.SetConnectionString(App.ConnStringSetting, true, UserNameTxt.Text, PasswordTxt.Text);
             App.LoggedIn = true;
             Preferences.Set("username", UserNameTxt.Text);
             Preferences.Set("password", PasswordTxt.Text);
