@@ -20,5 +20,12 @@ namespace RecipeAPI.Controllers
             return r.GetByCookBook(cookbookname);
             
         }
+        [HttpGet("getbycuisine/{cuisineid:int}")]
+        public List<bizRecipe> GetByCuisine(int cuisineid)
+        {
+            bizRecipe r = new();
+            return r.GetByCuisine(cuisineid);
+
+        }
     }
 }

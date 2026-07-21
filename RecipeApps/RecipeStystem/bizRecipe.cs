@@ -36,7 +36,13 @@ namespace RecipeSystem
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
-
+        public List<bizRecipe> GetByCuisine(int cuisineidval)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGetByCuisine");
+            SQLUtility.SetParamValue(cmd, "CuisineId", cuisineidval);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
         public int RecipeId
         {
             get => _recipeid;
