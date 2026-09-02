@@ -1,0 +1,26 @@
+.cookbook-library {
+    background-image: url("/images/cookbooks/shelf.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: repeat-y;
+    min-height: 100vh;
+}
+
+.cookbook-cover {
+    cursor: pointer;
+}
+
+.cookbook-selected {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.selected-cookbook {
+    width: 30%;
+    max-width: 500px;
+}

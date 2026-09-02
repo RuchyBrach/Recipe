@@ -1,7 +1,7 @@
 import Navbar from './Navbar'
-import Sidebar from './Sidebar'
-import MainScreen from './MainScreen'
 import './assets/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Outlet } from 'react-router-dom'
 
 function App() {
 
@@ -10,18 +10,9 @@ function App() {
       <div className="row">
         <div className="col-12 px-0">
           <Navbar />
+          <Outlet></Outlet>
         </div>
       </div>
-
-      <div className="row">
-        <div className="col-3 col-lg-2 border border-light">
-          <Sidebar />
-        </div>
-        <div className="col-9 col-lg-10">
-          <MainScreen />
-        </div>
-      </div>
-
 
 
     </div>
